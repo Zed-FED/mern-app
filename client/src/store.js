@@ -1,7 +1,7 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension'
-import { userLoginReducer, userRegistrationReducer, getUsersReducers, getSingleUserReducer, editUserReducer } from './redux/reducers/userReducers';
+import { userLoginReducer, userRegistrationReducer, getUsersReducers, getSingleUserReducer, editUserReducer, deleteUserReducer, addUserReducer } from './redux/reducers/userReducers';
 
 
 const reducer = combineReducers({
@@ -9,7 +9,9 @@ const reducer = combineReducers({
 	userRegister: userRegistrationReducer,
 	getUsers: getUsersReducers,
 	getSingleUser: getSingleUserReducer,
-	editUser: editUserReducer
+	editUser: editUserReducer,
+	deleteUser: deleteUserReducer,
+	addUser: addUserReducer
 })
 
 const userInfoFromStorage = localStorage.getItem('User Info') ? JSON.parse(localStorage.getItem('User Info')) : null;

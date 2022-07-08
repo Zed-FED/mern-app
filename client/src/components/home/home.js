@@ -1,29 +1,23 @@
 import { useEffect} from 'react';
 // import {useNavigate} from 'react-router';
-import {useDispatch, useSelector} from 'react-redux';
-import {logOut, getUsers} from '../../redux/actions/userActions'
+import {useDispatch} from 'react-redux';
+import {logOut, getUsers, deleteUser} from '../../redux/actions/userActions'
 import Loader from '../loader/loader'
-import { useNavigate } from 'react-router-dom';
-const Home = () => {
+import { useNavigate, Link } from 'react-router-dom';
+
+import {connect} from 'react-redux'
+
+import ListItem from './listItem'
+const Home = (props) => {
 
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	
 
-	const getAllUsers = useSelector(state => {
-		return state.getUsers
-	})
-	const {loading, users} = getAllUsers;
-
-	// console.log(getAllUsers)
-
-
+	const {loading, users} = props.users;
 
 	const onLogOut = () => {
-
 		dispatch(logOut())
-
-		// localStorage.removeItem('User Info');
 		navigate("/")
 	}
 
@@ -47,13 +41,17 @@ const Home = () => {
 		navigate(`/edit/${id}`)
 	}
 
-
-
+	const deleteSingleUser = (id) => {
+		// setModal(true)
+		dispatch(deleteUser(id))
+		window.location.reload()
+	}
 
 	return (
 		<>
 		  <h1>Home</h1>
 		  <button onClick={onLogOut}>Log Out</button>
+		  <Link to="/add">Add User</Link>
 		  {loading && <Loader />}
 
 		  <table style={tableStyle}>
@@ -66,23 +64,29 @@ const Home = () => {
 		  	</thead>
 		  	<tbody>
 		  		{users && users.map((user) => {
+		  			const {_id, name, email} = user
 				  	return (
-				  		<tr key={user._id}>
-				  			<td>{user.name}</td>
-				  			<td>{user.email}</td>
-				  			<td>
-				  				<button onClick={() => viewUser(user._id)}>View</button>
-				  				<button onClick={() => editUser(user._id)}>Edit</button>
-				  				<button>Delete</button>
-				  			</td>
-				  		</tr>
-				  		)
+				  		<ListItem 
+				  		  key={_id}	
+ 						  _id={_id}
+ 						  name={name}
+ 						  email={email}
+ 						  viewUser={viewUser}
+ 						  editUser={editUser}
+ 						  deleteSingleUser={deleteSingleUser}
+				  		/>
+			  		)
 				  })}
 		  	</tbody>
 		  </table>
-		  
 		</>
 	)
 }
 
-export default Home;
+const mapStateToProps = (state) => {
+	return {
+		users: state.getUsers
+	}
+}
+
+export default connect(mapStateToProps)(Home);

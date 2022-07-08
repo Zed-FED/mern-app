@@ -14,7 +14,13 @@ import {
   GET_SINGLE_USER_FAIL,
   EDIT_USER,
   EDIT_USER_SUCCESS,
-  EDIT_USER_FAIL    
+  EDIT_USER_FAIL,
+  DELETE_USER,
+  DELETE_USER_SUCCESS,
+  DELETE_USER_FAIL,
+  ADD_USER,
+  ADD_USER_SUCCESS,
+  ADD_USER_FAIL    
 } from "../constants/userConstants";
 import axios from "axios";
 
@@ -132,7 +138,7 @@ export const getSingleUser = (id) => async(dispatch) => {
 
     dispatch({ type: GET_SINGLE_USER });
 
-    await axios.get(`/users/${id}`).then((response) => {
+    axios.get(`/users/${id}`).then((response) => {
       const result = response.data;
       // console.log(response);
       const {status} = result;
@@ -183,5 +189,64 @@ export const editUser = (id, name, email) => async(dispatch) => {
       type: EDIT_USER_FAIL,
       payload: error
     })
+  }
+}
+
+export const deleteUser = (id) => async(dispatch) => {
+  try {
+
+    dispatch({ type: DELETE_USER });
+
+    // const credentials = { name: name, email: email };
+
+    await axios.delete(`/users/${id}`).then((response) => {
+      const result = response.data;
+      console.log(result)
+      const {status} = result;
+      if(status !== "SUCCESS") {
+        // console.log("Not Success")
+      } else {
+        dispatch({type: DELETE_USER_SUCCESS, payload: result.data})
+        console.log("Success")
+      }
+    }).catch((error) => {
+      console.log(error)
+    })
+
+  }catch(error) {
+    dispatch({
+      type: DELETE_USER_FAIL,
+      payload: error
+    })
+  }
+}
+
+export const addUser = (name, email, password) => async(dispatch) => {
+  
+  try {
+    
+    dispatch({type: ADD_USER})
+
+    const url = "/users";
+        const credentials = { name: name, email: email, password: password };
+
+          axios
+          .post(url, credentials)
+          .then((response) => {
+            const result = response.data;
+            const { status, message } = result;
+            if (status !== "SUCCESS") {
+              alert(message, status);
+            } else {
+              console.log("Success")
+              dispatch({type: ADD_USER_SUCCESS, payload: result.data})  
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+
+  } catch(error) {
+    dispatch({type: ADD_USER_FAIL, payload: error})
   }
 }

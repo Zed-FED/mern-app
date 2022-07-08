@@ -14,7 +14,13 @@ import {
     GET_SINGLE_USER_FAIL,
     EDIT_USER,
     EDIT_USER_SUCCESS,
-    EDIT_USER_FAIL
+    EDIT_USER_FAIL,
+    DELETE_USER,
+    DELETE_USER_SUCCESS,
+    DELETE_USER_FAIL,
+    ADD_USER,
+    ADD_USER_SUCCESS,
+    ADD_USER_FAIL
 } from '../constants/userConstants'
 
 export const userLoginReducer = (state = {}, action) => {
@@ -77,5 +83,29 @@ export const editUserReducer = (state = {}, action) => {
 		case EDIT_USER_FAIL :
 		  return {...state, loading: false, error: action.payload};
 		default: return state;     
+	}
+}
+
+export const deleteUserReducer = (state = {}, action) => {
+	switch(action.type) {
+		case DELETE_USER :
+		  return {loading: true};
+		case DELETE_USER_SUCCESS : 
+		  return {loading: false};
+		case DELETE_USER_FAIL :
+		  return {loading: false, error: action.payload};
+		default: return state;     
+	}
+}
+
+export const addUserReducer = (state = {}, action) => {
+	switch(action.type) {
+		case ADD_USER : 
+		  return {loading: true};
+		case ADD_USER_SUCCESS :
+		  return {loading: false, users: action.payload};
+	    case ADD_USER_FAIL :
+		  return {loading: false, error: action.payload}  ;
+		default : return state;       
 	}
 }
