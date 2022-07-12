@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-// import {useNavigate} from 'react-router';
 import { useDispatch, useSelector } from "react-redux";
 import { logOut, getUsers, deleteUser } from "../../redux/actions/userActions";
 import Loader from "../loader/loader";
@@ -27,7 +26,7 @@ const Home = (props) => {
     if (!userInfo.isAdmin) {
       navigate(`/${userInfo._id}`);
     }
-  }, [dispatch]);
+  }, [dispatch, navigate, userInfo.isAdmin, userInfo._id]);
 
   const tableStyle = {
     width: "100%",
@@ -49,9 +48,26 @@ const Home = (props) => {
     window.location.reload();
   };
 
+  // const filteredUser = async () => {
+  //   const response =
+  //     (await users) &&
+  //     users.filter((user) => {
+  //       return user.isAdmin !== true;
+  //     });
+  //   console.log(response);
+  // };
+
+  const filteredUser =
+    users &&
+    users.filter((user) => {
+      return user.isAdmin !== true;
+    });
+
   return (
     <>
-      <h1>Home</h1>
+      <h1>
+        Welcome <span style={{ color: "blue" }}>{userInfo.name}</span>
+      </h1>
       <button onClick={onLogOut}>Log Out</button>
       <Link to="/add">Add User</Link>
       {loading && <Loader />}
@@ -66,7 +82,7 @@ const Home = (props) => {
         </thead>
         <tbody>
           {users &&
-            users.map((user) => {
+            filteredUser.map((user) => {
               const { _id, name, email } = user;
               return (
                 <ListItem
