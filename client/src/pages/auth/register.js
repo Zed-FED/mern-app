@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 // import axios from "axios";
-import Loader from "../loader/loader";
+import Loader from "../../components/loader/loader";
 import { userRegistration } from "../../redux/actions/userActions";
-
+import { Link } from "react-router-dom";
 const Register = () => {
   const [user, setUser] = useState({
     name: "",
@@ -86,6 +86,7 @@ const Register = () => {
         </div>
         <button type="submit">Register</button>
       </form>
+      <Link to="/">Back to Login</Link>
     </>
   );
 };

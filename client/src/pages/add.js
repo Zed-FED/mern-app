@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { addUser } from "../../redux/actions/userActions";
+import { addUser } from "../redux/actions/userActions";
 const AddUser = () => {
   const [user, setUser] = useState({
     name: "",

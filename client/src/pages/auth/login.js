@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 // import axios from 'axios';
-import Loader from "../loader/loader";
+import Loader from "../../components/loader/loader";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../redux/actions/userActions";
 const Login = () => {

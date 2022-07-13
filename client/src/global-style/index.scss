@@ -1,0 +1,31 @@
+@import "config";
+@import "./base/index";
+@import "./components/index";
+// @import "vendor/material.scss";
+
+// $material-icons-font-path: '~material-icons/iconfont/';
+// @import '~material-icons/iconfont/material-icons.scss';
+
+.App {
+	height: 100vh;
+	display: grid;
+	grid-template-columns: 240px 1fr;
+	grid-template-rows: 70px 1fr;
+	grid-template-areas: 
+			"sidebar toolbar"
+			"sidebar content"
+}
+
+.sidebar-container {
+	grid-area: sidebar
+}
+
+.app-toolbar {
+	grid-area: toolbar
+}
+
+.content {
+	grid-area: content;
+	min-height: calc(100vh - 70px);
+	overflow-y: auto;
+}

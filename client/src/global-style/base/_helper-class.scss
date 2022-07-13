@@ -1,0 +1,216 @@
+// font size
+@each $name, $value in $font-size {
+  .font-#{$name} {
+    font-size: $value ;
+  }
+}
+
+// font weight
+@each $name, $value in $font-weight {
+  .font-weight-#{$name} {
+    font-weight: $value ;
+  }
+}
+
+// text, border and background color
+@each $name, $value in $app-colors {
+  .text-#{$name} {
+    color: $value ;
+  }
+
+  .bg-#{$name} {
+    background-color: $value ;
+  }
+
+  .border-#{$name} {
+    border-color: $value ;
+  }
+}
+
+// height
+@each $name, $value in $height {
+  .h-#{$name} {
+    height: $value ;
+  }
+
+  .h-min-#{$name} {
+    min-height: $value ;
+  }
+}
+
+// width
+@each $name, $value in $width {
+  .w-#{$name} {
+    width: $value ;
+  }
+}
+
+// min-width
+@each $name, $value in $minWidth {
+  .min-w-#{$name} {
+    min-width: $value ;
+  }
+}
+
+// for margin and padding
+@each $size in $padding-margin {
+  .p-#{$size} {
+    padding: #{$size} ;
+  }
+
+  .pl-#{$size},
+  .px-#{$size} {
+    padding-left: #{$size} ;
+  }
+
+  .pr-#{$size},
+  .px-#{$size} {
+    padding-right: #{$size} ;
+  }
+
+  .pt-#{$size},
+  .py-#{$size} {
+    padding-top: #{$size} ;
+  }
+
+  .pb-#{$size},
+  .py-#{$size} {
+    padding-bottom: #{$size} ;
+  }
+
+  .m-#{$size} {
+    margin: #{$size} ;
+  }
+
+  .ml-#{$size},
+  .mx-#{$size} {
+    margin-left: #{$size} ;
+  }
+
+  .mr-#{$size},
+  .mx-#{$size} {
+    margin-right: #{$size} ;
+  }
+
+  .mt-#{$size},
+  .my-#{$size} {
+    margin-top: #{$size} ;
+  }
+
+  .mb-#{$size},
+  .my-#{$size} {
+    margin-bottom: #{$size} ;
+  }
+}
+
+.mt-v-15px {
+  margin-top: -15px;
+}
+
+// for display
+@each $value in $display {
+  .d-#{$value} {
+    display: $value ;
+  }
+}
+
+.d-none {
+  display: none ;
+}
+
+// for position
+@each $value in $position {
+  .position-#{$value} {
+    position: $value ;
+  }
+}
+
+// for bg colors
+// @each $value in $colors {
+//   .bg-#{$value} {
+//     background-color: $value ;
+//   }
+// }
+
+//for flex
+
+.flex-column {
+  flex-direction: column;
+}
+
+@each $name, $value in $align-items {
+  .align-items-#{$name} {
+    align-items: $value ;
+  }
+}
+
+@each $name, $value in $justify-items {
+  .justify-content-#{$name} {
+    justify-content: $value ;
+  }
+}
+
+@each $name, $value in $align-self {
+  .align-self-#{$name} {
+    align-self: $value ;
+  }
+}
+
+// Text align
+@each $value in $text-align {
+  .text-#{$value} {
+    text-align: $value ;
+  }
+}
+
+// Vertical alignment
+@each $value in $vertical-align {
+  .align-#{$value} {
+    vertical-align: $value ;
+  }
+}
+
+// flex
+@each $value in $flex-direction {
+  .flex-#{$value} {
+    flex-direction: $value ;
+  }
+}
+
+// grid column
+@each $value in $grid-columns {
+  .grid-#{$value} {
+    grid-template-columns:repeat($value, (minmax(0,1fr)))  ;
+  }
+}
+@each $value in $grid-gap {
+  .gap-#{$value} {
+    gap: $value;
+  }
+}
+
+@each $value in $col-span {
+  .col-span-#{$value} {
+    grid-column: span $value;
+  }
+}
+
+
+
+// Border Radius
+// for display
+@each $value in $border-radius {
+  .border-radius-#{$value} {
+    border-radius: $value ;
+  }
+}
+
+
+
+.flex-grow-1 {
+  flex-grow: 1;
+}
+
+.seperator {
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+}

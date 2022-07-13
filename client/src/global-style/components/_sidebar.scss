@@ -1,0 +1,19 @@
+.has-dropdown {
+	display: flex;
+	align-items: center;
+
+	.dd-icon {
+		margin-left: auto;
+	}
+}
+
+.nav ul li  {
+	a {
+		padding: 10px;
+		display: block;
+	}
+	.has-dropdown {
+		padding: 10px;
+		cursor: pointer;
+	}
+}

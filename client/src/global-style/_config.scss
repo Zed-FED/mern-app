@@ -1,0 +1,147 @@
+:root {
+  --font-size-x-small: 10px;
+  --font-size-small: 12px;
+  --font-size-regular: 14px;
+  --font-size-large: 18px;
+  --font-size-x-large: 20px;
+  --font-size-xx-large: 24px;
+  --primary-color: #9100b5;
+  --primary-text: #4d4d4d;
+  --primary-text-dark: #0E1566;
+}
+
+// Font
+//-----------------------------
+$font-size: (
+
+  "x-small": var(--font-size-x-small),
+  "small": var(--font-size-small),
+  "regular": var(--font-size-regular),
+  "large": var(--font-size-large),
+  "x-large": var(--font-size-x-large),
+  "xx-large": var(--font-size-xx-large)
+);
+
+// Radius
+//-----------------------------
+$app-colors: (
+  "primary": #9100b5,
+  "secondary": #52A943,
+  "primary-light": #898CAA,
+  "yellow": #FFB84F,
+  "danger": #EA593C,
+  "light": #F5F6FB,
+  "gradient": linear-gradient(180deg, #FFDD86 0%, #FFB84F 100%),
+  "white": #fff,
+  "link-water": #EFF2FA,
+);
+
+// Font Weight
+//-----------------------------
+$font-weight: (
+  "normal": 400,
+  "medium": 500,
+  "bold": 700,
+  "light": 300
+);
+
+// Height
+//-----------------------------
+$height: (
+  "auto": auto,
+  "16px": 16px,
+  "20px": 20px,
+  "50px": 50px,
+  "85px": 85px,
+  "100px": 100px,
+  "full": 100%,
+  "screen": 100vh,
+);
+
+// Width
+//-----------------------------
+$width: (
+  "screen": 100vh,
+  "full": 100%,
+  "440px": 440px,
+  "300px": 300px,
+  "330px": 330px,
+  "250px": 250px,
+  "140px": 140px,
+  "120px": 120px,
+  "16px": 16px
+);
+
+
+// Min-Width
+//-----------------------------
+$minWidth: (
+  "40px": 40px,
+  "300px": 300px
+);
+
+// Padding and margin
+//-----------------------------
+$padding-margin: (auto, 0, 3px, 5px, 10px, 15px, 20px, 25px, 30px, 40px, 60px, 70px, 95px, 135px);
+
+
+$grid-columns: (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
+$grid-gap: (10px, 15px, 20px, 25px, 30px, 40px, 45px, 50px);
+$col-span: (2,3,4,5,6);
+
+// Display
+//-----------------------------
+$display: (block, inline, inline-block, flex, grid, inline-flex);
+
+// Position
+//-----------------------------
+$position: (relative, absolute, sticky, fixed);
+
+// Flex utility
+//-----------------------------
+$align-items: (
+  "start": flex-start,
+  "end": flex-end,
+  "center": center,
+  "baseline": baseline,
+  "around": space-around,
+  "stretch": stretch
+);
+
+$justify-items: (
+  "start": flex-start,
+  "end": flex-end,
+  "center": center,
+  "between": space-between,
+  "around": space-around
+);
+
+$align-self: (
+  "auto": auto,
+  "start": flex-start,
+  "end": flex-end,
+  "center": center,
+  "baseline": baseline,
+  "stretch": stretch
+);
+
+$bg-colors: (
+  "white": "#fff",
+  "dark": "#1a162f"
+);
+
+// Text align
+//-----------------------------
+$text-align: (left, right, center);
+
+// Vertical alignment
+//-----------------------------
+$vertical-align: (baseline, top, middle, bottom);
+
+// Flex direction
+//-----------------------------
+$flex-direction: (row, column, column-reverse, row-reverse);
+
+// Border Radius
+//-----------------------------
+$border-radius: ( 4px, 5px, 10px, 15px, 20px, 25px, 30px);
