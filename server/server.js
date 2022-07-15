@@ -1,25 +1,27 @@
-const express = require('express');
-const mongoose = require('mongoose');
+const express = require("express");
+const mongoose = require("mongoose");
 const cors = require("cors");
+const dotenv = require("dotenv");
 
+dotenv.config();
 const app = express();
 
 app.use(cors());
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-
-const userRoutes = require('./routes/userRoutes');
+const userRoutes = require("./routes/userRoutes");
 app.use(userRoutes);
 
+mongoose
+  .connect(process.env.API_URL)
+  .then(() => {
+    console.log("Connection Succesfully established");
+  })
+  .catch((error) => {
+    console.log(error.message);
+  });
 
-mongoose.connect("mongodb+srv://zuber:87654321@cluster0.qejzh.mongodb.net/users?retryWrites=true&w=majority").then(() => {
-	console.log("Connection Succesfully established")
-}).catch((error) => {
-	console.log(error.message);
-})
-
-
-app.listen(8000, () => {
-	console.log("App is running")
-})
+app.listen(process.env.PORT, () => {
+  console.log(`App is running on port ${process.env.PORT}`);
+});
