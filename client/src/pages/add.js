@@ -7,6 +7,7 @@ const AddUser = () => {
     name: "",
     email: "",
     password: "",
+    department: "",
   });
 
   const inputChangeHandler = (e) => {
@@ -16,13 +17,15 @@ const AddUser = () => {
   };
 
   const dispatch = useDispatch();
+  // const navigate = useNavigate();
 
   const onSubmitFormHandler = async (e) => {
     e.preventDefault();
-    dispatch(addUser(user.name, user.email, user.password));
-    // navigate("/home");
+    console.log(user);
+    dispatch(addUser(user.name, user.email, user.password, user.department));
     alert("User successfully added");
     window.location.reload();
+    // navigate("/home");
   };
 
   return (
@@ -58,6 +61,20 @@ const AddUser = () => {
             onChange={inputChangeHandler}
             required
           />
+        </div>
+        <div>
+          <select
+            onChange={inputChangeHandler}
+            value={user.department}
+            name="department"
+          >
+            <option value="">Please Select Department</option>
+            <option value="Frontend">FrontEnd</option>
+            <option value="Backend">BackEnd</option>
+            <option value="QA">QA</option>
+            <option value="HR">HR</option>
+            <option value="Management">Management</option>
+          </select>
         </div>
         <button type="submit">Add User</button>
       </form>

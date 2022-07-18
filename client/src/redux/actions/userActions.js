@@ -67,7 +67,7 @@ export const logOut = () => async (dispatch) => {
 };
 
 export const userRegistration =
-  (name, email, password, isAdmin) => async (dispatch) => {
+  (name, email, password, department, isAdmin) => async (dispatch) => {
     try {
       dispatch({ type: USER_REGISTRATION_REQUEST });
 
@@ -76,6 +76,7 @@ export const userRegistration =
         name: name,
         email: email,
         password: password,
+        department: department,
         isAdmin,
       };
 
@@ -159,14 +160,14 @@ export const getSingleUser = (id) => async (dispatch) => {
   }
 };
 
-export const editUser = (id, name, email) => async (dispatch) => {
+export const editUser = (id, name, email, department) => async (dispatch) => {
   try {
     dispatch({ type: EDIT_USER });
 
     // const credentials = { name: name, email: email };
 
     await axios
-      .put(`/users/${id}`, name, email)
+      .put(`/users/${id}`, name, email, department)
       .then((response) => {
         const result = response.data;
         console.log(result);
@@ -221,29 +222,35 @@ export const deleteUser = (id) => async (dispatch) => {
   }
 };
 
-export const addUser = (name, email, password) => async (dispatch) => {
-  try {
-    dispatch({ type: ADD_USER });
+export const addUser =
+  (name, email, password, department) => async (dispatch) => {
+    try {
+      dispatch({ type: ADD_USER });
 
-    const url = "/users";
-    const credentials = { name: name, email: email, password: password };
+      const url = "/users";
+      const credentials = {
+        name: name,
+        email: email,
+        password: password,
+        department: department,
+      };
 
-    axios
-      .post(url, credentials)
-      .then((response) => {
-        const result = response.data;
-        const { status, message } = result;
-        if (status !== "SUCCESS") {
-          alert(message, status);
-        } else {
-          console.log("Success");
-          dispatch({ type: ADD_USER_SUCCESS, payload: result.data });
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  } catch (error) {
-    dispatch({ type: ADD_USER_FAIL, payload: error });
-  }
-};
+      axios
+        .post(url, credentials)
+        .then((response) => {
+          const result = response.data;
+          const { status, message } = result;
+          if (status !== "SUCCESS") {
+            alert(message, status);
+          } else {
+            console.log("Success");
+            dispatch({ type: ADD_USER_SUCCESS, payload: result.data });
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } catch (error) {
+      dispatch({ type: ADD_USER_FAIL, payload: error });
+    }
+  };

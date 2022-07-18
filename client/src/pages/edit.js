@@ -10,6 +10,7 @@ const UpdateUser = () => {
   const [userData, setUserData] = useState({
     name: "",
     email: "",
+    department: "",
   });
   // const [edit, setEdit] = useState(false)
 
@@ -40,6 +41,7 @@ const UpdateUser = () => {
       setUserData({
         name: data.data.name,
         email: data.data.email,
+        department: data.data.department,
       });
     };
     fetching();
@@ -86,10 +88,22 @@ const UpdateUser = () => {
               />
               {/* <input type="text" defaultValue={user.email} onChange={inputChangeHandler} name="email" required /> */}
             </div>
+            <div style={{ padding: "0 0 10px" }}>
+              <select
+                onChange={inputChangeHandler}
+                value={user.department}
+                name="department"
+              >
+                <option value="">Please Select Department</option>
+                <option value="Frontend">FrontEnd</option>
+                <option value="Backend">BackEnd</option>
+                <option value="QA">QA</option>
+                <option value="HR">HR</option>
+                <option value="Management">Management</option>
+              </select>
+            </div>
             <button type="submit">Update</button>
           </form>
-          <h2>{user.name}</h2>
-          <h3>{user.email}</h3>
         </>
       )}
     </>

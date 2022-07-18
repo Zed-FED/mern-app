@@ -42,31 +42,35 @@ const EmployeeList = ({ userList }) => {
     { field: "_id", headerName: "ID", width: 170 },
     { field: "name", headerName: "Username", width: 130 },
     { field: "email", headerName: "Email", width: 330 },
+    { field: "department", headerName: "Department", width: 330 },
     {
       field: "actions",
       headerName: "Action",
       width: 200,
       renderCell: (params) => {
-        console.log(params);
         return (
           <div>
             <Stack direction="row" spacing={1}>
-              <IconButton aria-label="delete">
-                <RemoveRedEyeIcon onClick={() => viewUser(params.id)} />
+              <IconButton
+                aria-label="delete"
+                onClick={() => viewUser(params.id)}
+              >
+                <RemoveRedEyeIcon />
               </IconButton>
-              <IconButton aria-label="Edit">
-                <EditIcon onClick={() => editUser(params.id)} />
+              <IconButton aria-label="Edit" onClick={() => editUser(params.id)}>
+                <EditIcon />
               </IconButton>
-              <IconButton aria-label="delete">
-                <DeleteIcon
-                  onClick={() => {
-                    setRowId({
-                      name: params.row.name,
-                      id: params.id,
-                    });
-                    return setIsModal(true);
-                  }}
-                />
+              <IconButton
+                aria-label="delete"
+                onClick={() => {
+                  setRowId({
+                    name: params.row.name,
+                    id: params.id,
+                  });
+                  setIsModal(true);
+                }}
+              >
+                <DeleteIcon />
               </IconButton>
             </Stack>
           </div>
@@ -89,7 +93,7 @@ const EmployeeList = ({ userList }) => {
   return (
     <>
       {loading && <Loader />}
-      <div className="d-flex justify-content-between align-items-center">
+      <div className="d-flex justify-content-between align-items-center px-15px">
         <h3>Users</h3>
         <Button
           component={Link}

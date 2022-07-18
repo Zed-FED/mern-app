@@ -9,11 +9,12 @@ const Register = () => {
   const [user, setUser] = useState({
     name: "",
     email: "",
+    department: "",
     password: "",
   });
 
   const [checkIsAdmin, setCheckIsAdmin] = useState(false);
-  console.log(checkIsAdmin);
+  // console.log(checkIsAdmin);
   const dispatch = useDispatch();
 
   const userRegister = useSelector((state) => state.userRegister);
@@ -31,7 +32,13 @@ const Register = () => {
   const onSubmitFormHandler = async (e) => {
     e.preventDefault();
     dispatch(
-      userRegistration(user.name, user.email, user.password, checkIsAdmin)
+      userRegistration(
+        user.name,
+        user.email,
+        user.department,
+        user.password,
+        checkIsAdmin
+      )
     );
   };
 
@@ -63,6 +70,20 @@ const Register = () => {
             onChange={inputChangeHandler}
             required
           />
+        </div>
+        <div>
+          <select
+            onChange={inputChangeHandler}
+            value={user.department}
+            name="department"
+          >
+            <option value="">Please Select Department</option>
+            <option value="Frontend">FrontEnd</option>
+            <option value="Backend">BackEnd</option>
+            <option value="QA">QA</option>
+            <option value="HR">HR</option>
+            <option value="Management">Management</option>
+          </select>
         </div>
         <div>
           <input

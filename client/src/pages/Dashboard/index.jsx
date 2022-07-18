@@ -10,21 +10,40 @@ import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import EmployeeList from "../Employee/EmployeeList";
 // From Home
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector, connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 
-const Dashboard = () => {
+import { getUsers } from "../../redux/actions/userActions";
+
+const Dashboard = ({ userList }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
+
+  const { users } = userList;
+
+  const adminUsers =
+    users &&
+    users.filter((user) => {
+      return user.isAdmin === true;
+    });
+  const filteredUser =
+    users &&
+    users.filter((user) => {
+      return user.isAdmin !== true;
+    });
 
   useEffect(() => {
     if (!userInfo.isAdmin) {
       navigate(`/${userInfo._id}`);
     }
-  }, [navigate, userInfo.isAdmin, userInfo._id]);
+    dispatch(getUsers());
+  }, [dispatch, navigate, userInfo.isAdmin, userInfo._id]);
+
+  const sortArr = users && filteredUser.reverse().slice(0, 3);
 
   return (
     <>
@@ -40,7 +59,7 @@ const Dashboard = () => {
         <Card className="p-15px d-flex align-items-center">
           <div className="flex-grow-1">
             <h3 className="mt-0">Total Employee</h3>
-            <h2>60</h2>
+            <h2>{users && filteredUser.length}</h2>
           </div>
           <PeopleIcon sx={{ fontSize: 60 }} color="primary" />
         </Card>
@@ -54,7 +73,7 @@ const Dashboard = () => {
         <Card className="p-15px d-flex align-items-center">
           <div className="flex-grow-1">
             <h3 className="mt-0">Admins</h3>
-            <h2>05</h2>
+            <h2>{users && adminUsers.length}</h2>
           </div>
           <AdminPanelSettingsIcon sx={{ fontSize: 60 }} color="primary" />
         </Card>
@@ -76,16 +95,24 @@ const Dashboard = () => {
 
         {/* <AppDatePicker /> */}
         <Card>
-          <h2 className="m-0 p-15px seperator">Upcoming Events</h2>
-          <EventList />
+          <h2 className="m-0 p-15px seperator">Recently Added</h2>
+          <EventList users={users} sortArr={sortArr} />
         </Card>
       </div>
 
       <div className="my-30px">
-        <EmployeeList />
+        <Card>
+          <EmployeeList />
+        </Card>
       </div>
     </>
   );
 };
 
-export default Dashboard;
+const mapStateToProps = (state) => {
+  return {
+    userList: state.getUsers,
+  };
+};
+
+export default connect(mapStateToProps)(Dashboard);
