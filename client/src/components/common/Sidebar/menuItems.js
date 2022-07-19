@@ -13,8 +13,8 @@ let menuItem = [
     ],
   },
   {
-    menuName: "Menu Item",
-    link: "/",
+    menuName: "Departments",
+    link: "/departments",
   },
 ];
 

@@ -14,6 +14,7 @@ import PrivateRoute from "./PrivateRoute";
 
 import Dashboard from "./pages/Dashboard";
 import EmployeeList from "./pages/Employee/EmployeeList";
+import Category from "./pages/Category";
 // import "./App.css";
 
 function App() {
@@ -67,6 +68,14 @@ function App() {
                 element={
                   <PrivateRoute>
                     <EmployeeList />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/departments"
+                element={
+                  <PrivateRoute>
+                    <Category />
                   </PrivateRoute>
                 }
               />

@@ -11,7 +11,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 const userRoutes = require("./routes/userRoutes");
+const categoryRoutes = require("./routes/categoryRoutes");
 app.use(userRoutes);
+app.use(categoryRoutes);
 
 mongoose
   .connect(process.env.API_URL)

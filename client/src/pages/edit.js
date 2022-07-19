@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import { getSingleUser, editUser } from "../redux/actions/userActions";
 import Loader from "../components/loader/loader";
 // import { userUpdated } from './userSlice'
 import axios from "axios";
+import { getCategories } from "../redux/actions/categoryActions";
 
-const UpdateUser = () => {
+const UpdateUser = ({ departments }) => {
+  // console.log(departments.categories);
   const [userData, setUserData] = useState({
     name: "",
     email: "",
@@ -35,6 +37,7 @@ const UpdateUser = () => {
 
   useEffect(() => {
     dispatch(getSingleUser(params.id));
+    dispatch(getCategories());
     // dispatch(fetchItems())
     const fetching = async () => {
       const { data } = await axios.get(`/users/${params.id}`);
@@ -91,15 +94,24 @@ const UpdateUser = () => {
             <div style={{ padding: "0 0 10px" }}>
               <select
                 onChange={inputChangeHandler}
-                value={user.department}
+                value={userData.department}
                 name="department"
               >
                 <option value="">Please Select Department</option>
-                <option value="Frontend">FrontEnd</option>
+                {/* <option value="Frontend">FrontEnd</option>
                 <option value="Backend">BackEnd</option>
                 <option value="QA">QA</option>
                 <option value="HR">HR</option>
-                <option value="Management">Management</option>
+      <option value="Management">Management</option> */}
+
+                {departments.categories &&
+                  departments.categories.map((category) => {
+                    return (
+                      <option key={category._id} value={category.name}>
+                        {category.name}
+                      </option>
+                    );
+                  })}
               </select>
             </div>
             <button type="submit">Update</button>
@@ -110,4 +122,10 @@ const UpdateUser = () => {
   );
 };
 
-export default UpdateUser;
+const mapStateToProps = (state) => {
+  return {
+    departments: state.getCategories,
+  };
+};
+
+export default connect(mapStateToProps)(UpdateUser);
