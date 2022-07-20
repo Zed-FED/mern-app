@@ -1,0 +1,23 @@
+.Auth {
+  height: 100vh;
+  background-color: var(--primary-color);
+  align-items: center;
+  justify-content: center;
+  display: flex;
+
+  .auth-form-container {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .auth-select {
+    text-align: left;
+  }
+
+  a {
+    color: var(--primary-color);
+    font-weight: 600;
+  }
+}

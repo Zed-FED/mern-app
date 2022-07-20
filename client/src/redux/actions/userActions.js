@@ -67,7 +67,7 @@ export const logOut = () => async (dispatch) => {
 };
 
 export const userRegistration =
-  (name, email, password, department, isAdmin) => async (dispatch) => {
+  (name, email, department, password, isAdmin) => async (dispatch) => {
     try {
       dispatch({ type: USER_REGISTRATION_REQUEST });
 
@@ -75,8 +75,8 @@ export const userRegistration =
       const credentials = {
         name: name,
         email: email,
-        password: password,
         department: department,
+        password: password,
         isAdmin,
       };
 
@@ -170,7 +170,7 @@ export const editUser = (id, name, email, department) => async (dispatch) => {
       .put(`/users/${id}`, name, email, department)
       .then((response) => {
         const result = response.data;
-        console.log(result);
+        // console.log(result);
         // console.log(response);
         const { status } = result;
         if (status !== "SUCCESS") {

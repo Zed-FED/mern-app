@@ -6,9 +6,20 @@ import Loader from "../components/loader/loader";
 // import { userUpdated } from './userSlice'
 import axios from "axios";
 import { getCategories } from "../redux/actions/categoryActions";
+import {
+  Button,
+  FormControl,
+  IconButton,
+  Input,
+  InputAdornment,
+  InputLabel,
+  MenuItem,
+  Select,
+} from "@mui/material";
+import PersonIcon from "@mui/icons-material/Person";
+import EmailIcon from "@mui/icons-material/Email";
 
 const UpdateUser = ({ departments }) => {
-  // console.log(departments.categories);
   const [userData, setUserData] = useState({
     name: "",
     email: "",
@@ -20,9 +31,6 @@ const UpdateUser = ({ departments }) => {
   const navigate = useNavigate();
   const params = useParams();
   const location = useLocation();
-
-  // console.log(location);
-  // console.log(params)
 
   /* Get Single User */
   const { loading, user } = useSelector((state) => {
@@ -54,15 +62,11 @@ const UpdateUser = ({ departments }) => {
     e.preventDefault();
     if (user.name && user.email) {
       dispatch(editUser(location.pathname, userData));
-      // dispatch(editUser(params.id, userData))
       navigate("/home");
     }
   };
 
-  // console.log(userName)
-
   // const newObj = Object.assign(userData, { name: user ? user.name : 'Some name', email: user ? user.email : 'Some email' })
-  // console.log(userData)
 
   return (
     <>
@@ -72,49 +76,75 @@ const UpdateUser = ({ departments }) => {
         <>
           <form onSubmit={onSubmitFormHandler}>
             <div style={{ padding: "0 0 10px" }}>
-              <input
-                type="text"
-                value={userData.name}
-                onChange={inputChangeHandler}
-                name="name"
-                required
-              />
-              {/* <input type="text" defaultValue={user.name} onChange={inputChangeHandler} name="name" required /> */}
+              <FormControl sx={{ m: 1 }} variant="standard">
+                <InputLabel htmlFor="name">Name</InputLabel>
+                <Input
+                  id="name"
+                  name="name"
+                  type="text"
+                  value={userData.name}
+                  onChange={inputChangeHandler}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton>
+                        <PersonIcon />
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                />
+              </FormControl>
             </div>
             <div style={{ padding: "0 0 10px" }}>
-              <input
-                type="text"
-                value={userData.email}
-                onChange={inputChangeHandler}
-                name="email"
-                required
-              />
-              {/* <input type="text" defaultValue={user.email} onChange={inputChangeHandler} name="email" required /> */}
+              <FormControl sx={{ m: 1 }} variant="standard">
+                <InputLabel htmlFor="email">Email</InputLabel>
+                <Input
+                  id="email"
+                  name="email"
+                  type="text"
+                  value={userData.email}
+                  onChange={inputChangeHandler}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton>
+                        <EmailIcon />
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                />
+              </FormControl>
             </div>
             <div style={{ padding: "0 0 10px" }}>
-              <select
-                onChange={inputChangeHandler}
-                value={userData.department}
-                name="department"
+              <FormControl
+                variant="standard"
+                sx={{ m: 1, minWidth: 250 }}
+                className="auth-select"
               >
-                <option value="">Please Select Department</option>
-                {/* <option value="Frontend">FrontEnd</option>
-                <option value="Backend">BackEnd</option>
-                <option value="QA">QA</option>
-                <option value="HR">HR</option>
-      <option value="Management">Management</option> */}
-
-                {departments.categories &&
-                  departments.categories.map((category) => {
-                    return (
-                      <option key={category._id} value={category.name}>
-                        {category.name}
-                      </option>
-                    );
-                  })}
-              </select>
+                <InputLabel id="selectDepartmentLabel">Department</InputLabel>
+                <Select
+                  labelId="selectDepartmentLabel"
+                  id="selectDepartment"
+                  value={userData.department}
+                  label="Department"
+                  onChange={inputChangeHandler}
+                  name="department"
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
+                  {departments.categories &&
+                    departments.categories.map((category) => {
+                      return (
+                        <MenuItem key={category._id} value={category.name}>
+                          {category.name}
+                        </MenuItem>
+                      );
+                    })}
+                </Select>
+              </FormControl>
             </div>
-            <button type="submit">Update</button>
+            <Button variant="contained" type="submit" sx={{ m: 1 }}>
+              Update
+            </Button>
           </form>
         </>
       )}

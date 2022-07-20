@@ -1,4 +1,11 @@
-import { Button, Dialog } from "@mui/material";
+import {
+  Button,
+  Dialog,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  TextField,
+} from "@mui/material";
 import { useEffect, useState } from "react";
 import { connect, useDispatch } from "react-redux";
 import Loader from "../../components/loader/loader";
@@ -77,8 +84,8 @@ const Category = ({ categoryList }) => {
   };
 
   const columns = [
-    { field: "_id", headerName: "ID", width: 270 },
-    { field: "name", headerName: "Department Name", width: 270 },
+    { field: "_id", headerName: "ID", hide: true },
+    { field: "name", headerName: "Department Name", flex: 1 },
     {
       field: "actions",
       headerName: "Action",
@@ -108,6 +115,7 @@ const Category = ({ categoryList }) => {
           </div>
         );
       },
+      width: 330,
     },
   ];
 
@@ -143,18 +151,39 @@ const Category = ({ categoryList }) => {
 
       {isModal && (
         <Dialog open={isModal}>
-          <form onSubmit={onSubmitFormHandler} style={{ padding: 20 }}>
-            <div style={{ marginBottom: 20 }}>
-              <input
+          <DialogTitle>
+            {editToggle ? "Edit Department" : "Add Department"}
+          </DialogTitle>
+          <form onSubmit={onSubmitFormHandler}>
+            <DialogContent style={{ paddingTop: 0 }}>
+              <DialogContentText>
+                {editToggle
+                  ? "Edit the name of the department"
+                  : "Type the name of the department you want to add."}
+              </DialogContentText>
+
+              <TextField
+                autoFocus
+                margin="dense"
+                id="name"
+                label="Enter Department Name"
                 type="text"
                 value={department.name}
                 onChange={inputChangeHandler}
                 name="name"
-                placeholder="Enter department name"
+                fullWidth
+                variant="standard"
               />
-            </div>
+            </DialogContent>
             <DialogActions>
-              <Button onClick={() => setIsModal(false)}>Cancel</Button>
+              <Button
+                onClick={() => {
+                  setIsModal(false);
+                  setEditToggle(false);
+                }}
+              >
+                Cancel
+              </Button>
               {editToggle ? (
                 <Button type="button" onClick={updateCategory}>
                   Update
@@ -169,10 +198,17 @@ const Category = ({ categoryList }) => {
 
       {deleteModal && (
         <Dialog open={deleteModal}>
-          <h2>
-            Are you sure you want to delete{" "}
-            <span style={{ color: "purple" }}>{depInfo.name}</span>?
-          </h2>
+          <DialogTitle id="alert-dialog-title">
+            Are you sure you want to delete the department?
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              By clicking on the Confirm button, You will remove the department{" "}
+              <span style={{ color: "purple" }}>{depInfo.name}</span> from the
+              database.
+            </DialogContentText>
+          </DialogContent>
+
           <DialogActions>
             <Button onClick={() => setDeleteModal(false)}>Cancel</Button>
             <Button onClick={() => deleteSingleCategory(depInfo.id)}>

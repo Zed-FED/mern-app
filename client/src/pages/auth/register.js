@@ -5,12 +5,33 @@ import { useDispatch, useSelector } from "react-redux";
 import Loader from "../../components/loader/loader";
 import { userRegistration } from "../../redux/actions/userActions";
 import { Link } from "react-router-dom";
-const Register = () => {
+import { connect } from "react-redux";
+import { getCategories } from "../../redux/actions/categoryActions";
+import Card from "../../components/common/Card/Card";
+import {
+  Button,
+  Checkbox,
+  FormControl,
+  FormControlLabel,
+  IconButton,
+  Input,
+  InputAdornment,
+  InputLabel,
+  MenuItem,
+  Select,
+  Typography,
+} from "@mui/material";
+import EmailIcon from "@mui/icons-material/Email";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import PersonIcon from "@mui/icons-material/Person";
+const Register = ({ departments }) => {
   const [user, setUser] = useState({
     name: "",
     email: "",
     department: "",
     password: "",
+    showPassword: false,
   });
 
   const [checkIsAdmin, setCheckIsAdmin] = useState(false);
@@ -46,70 +67,134 @@ const Register = () => {
     if (userInfo) {
       navigate("/home/");
     }
-  }, [navigate, userInfo]);
+    dispatch(getCategories());
+  }, [dispatch, navigate, userInfo]);
   return (
     <>
       {loading && <Loader />}
-      <form onSubmit={onSubmitFormHandler}>
-        <div>
-          <input
-            type="text"
-            placeholder="Enter name"
-            value={user.name}
-            name="name"
-            onChange={inputChangeHandler}
-            required
-          />
+      <Card className="auth-form-container">
+        <Typography variant="h4" component="h4" color="primary">
+          Register
+        </Typography>
+        <form onSubmit={onSubmitFormHandler}>
+          <div>
+            <FormControl sx={{ m: 1 }} variant="standard">
+              <InputLabel htmlFor="name">Enter name</InputLabel>
+              <Input
+                id="name"
+                name="name"
+                type="text"
+                value={user.name}
+                onChange={inputChangeHandler}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton>
+                      <PersonIcon />
+                    </IconButton>
+                  </InputAdornment>
+                }
+              />
+            </FormControl>
+          </div>
+          <div>
+            <FormControl sx={{ m: 1 }} variant="standard">
+              <InputLabel htmlFor="email">Enter Email</InputLabel>
+              <Input
+                id="email"
+                name="email"
+                type="text"
+                value={user.email}
+                onChange={inputChangeHandler}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton>
+                      <EmailIcon />
+                    </IconButton>
+                  </InputAdornment>
+                }
+              />
+            </FormControl>
+          </div>
+          <div>
+            <FormControl
+              variant="standard"
+              sx={{ m: 1, minWidth: 250 }}
+              className="auth-select"
+            >
+              <InputLabel id="selectDepartmentLabel">Department</InputLabel>
+              <Select
+                labelId="selectDepartmentLabel"
+                id="selectDepartment"
+                value={user.department}
+                label="Department"
+                onChange={inputChangeHandler}
+                name="department"
+              >
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
+                {departments.categories &&
+                  departments.categories.map((category) => {
+                    return (
+                      <MenuItem key={category._id} value={category.name}>
+                        {category.name}
+                      </MenuItem>
+                    );
+                  })}
+              </Select>
+            </FormControl>
+          </div>
+          <div>
+            <FormControl sx={{ m: 1 }} variant="standard">
+              <InputLabel htmlFor="password">Password</InputLabel>
+              <Input
+                id="password"
+                name="password"
+                type={user.showPassword ? "text" : "password"}
+                value={user.password}
+                onChange={inputChangeHandler}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={() =>
+                        setUser({ ...user, showPassword: !user.showPassword })
+                      }
+                    >
+                      {user.showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+              />
+            </FormControl>
+          </div>
+          <div>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={checkIsAdmin}
+                  onChange={() => setCheckIsAdmin(!checkIsAdmin)}
+                />
+              }
+              label="Is Admin?"
+            />
+          </div>
+          <Button variant="contained" type="submit" sx={{ m: 1 }}>
+            Register
+          </Button>
+        </form>
+        <div className="mt-10px">
+          <Link to="/">Back to Login</Link>
         </div>
-        <div>
-          <input
-            type="text"
-            placeholder="Enter email"
-            value={user.email}
-            name="email"
-            onChange={inputChangeHandler}
-            required
-          />
-        </div>
-        <div>
-          <select
-            onChange={inputChangeHandler}
-            value={user.department}
-            name="department"
-          >
-            <option value="">Please Select Department</option>
-            <option value="Frontend">FrontEnd</option>
-            <option value="Backend">BackEnd</option>
-            <option value="QA">QA</option>
-            <option value="HR">HR</option>
-            <option value="Management">Management</option>
-          </select>
-        </div>
-        <div>
-          <input
-            type="password"
-            placeholder="Enter password"
-            value={user.password}
-            name="password"
-            onChange={inputChangeHandler}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="admin">is admin?</label>
-          <input
-            type="checkbox"
-            required
-            id="admin"
-            checked={checkIsAdmin}
-            onChange={() => setCheckIsAdmin(!checkIsAdmin)}
-          />
-        </div>
-        <button type="submit">Register</button>
-      </form>
-      <Link to="/">Back to Login</Link>
+      </Card>
     </>
   );
 };
 
-export default Register;
+const mapStateToProps = (state) => {
+  return {
+    departments: state.getCategories,
+  };
+};
+
+export default connect(mapStateToProps)(Register);

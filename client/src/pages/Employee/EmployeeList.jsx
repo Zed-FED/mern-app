@@ -13,7 +13,13 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Stack from "@mui/material/Stack";
 import AddIcon from "@mui/icons-material/Add";
-import { Button } from "@mui/material";
+import {
+  Button,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from "@mui/material";
 import { Link } from "react-router-dom";
 
 const EmployeeList = ({ userList }) => {
@@ -39,9 +45,9 @@ const EmployeeList = ({ userList }) => {
     window.location.reload();
   };
   const columns = [
-    { field: "_id", headerName: "ID", width: 170 },
-    { field: "name", headerName: "Username", width: 130 },
-    { field: "email", headerName: "Email", width: 330 },
+    { field: "_id", headerName: "ID", hide: true },
+    { field: "name", headerName: "Username", flex: 1 },
+    { field: "email", headerName: "Email", flex: 1 },
     { field: "department", headerName: "Department", width: 330 },
     {
       field: "actions",
@@ -117,16 +123,22 @@ const EmployeeList = ({ userList }) => {
       </div>
       {isModal && (
         <Dialog open={isModal}>
-          <h3>
-            Are you sure you want to delete{" "}
-            <span style={{ color: "purple" }}>{rowId.name}</span>?{" "}
-          </h3>
-          <div className="d-flex justify-content-center pb-20px">
-            <button onClick={() => setIsModal(false)} className="mr-10px">
-              Cancel
-            </button>
-            <button onClick={() => deleteSingleUser(rowId.id)}>Confirm</button>
-          </div>
+          <DialogTitle id="alert-dialog-title">
+            Are you sure you want to delete?
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              By clicking on the Confirm button, You will remove the user{" "}
+              <span style={{ color: "purple" }}>{rowId.name}</span> from the
+              database.
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => setIsModal(false)}>cancel</Button>
+            <Button onClick={() => deleteSingleUser(rowId.id)} autoFocus>
+              Confirm
+            </Button>
+          </DialogActions>
         </Dialog>
       )}
     </>

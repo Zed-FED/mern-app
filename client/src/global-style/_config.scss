@@ -1,3 +1,6 @@
+$primary: #19d29f;
+$secondary: #04a8e9;
+$white: #fff;
 :root {
   --font-size-x-small: 10px;
   --font-size-small: 12px;
@@ -5,35 +8,31 @@
   --font-size-large: 18px;
   --font-size-x-large: 20px;
   --font-size-xx-large: 24px;
-  --primary-color: #9100b5;
+  --primary-color: #{$primary};
   --primary-text: #4d4d4d;
-  --primary-text-dark: #0E1566;
+  --primary-text-dark: #0e1566;
+  --white: #{$white};
+}
+
+:export {
+  primary: $primary;
+  secondary: $secondary;
 }
 
 // Font
 //-----------------------------
 $font-size: (
-
   "x-small": var(--font-size-x-small),
   "small": var(--font-size-small),
   "regular": var(--font-size-regular),
   "large": var(--font-size-large),
   "x-large": var(--font-size-x-large),
-  "xx-large": var(--font-size-xx-large)
+  "xx-large": var(--font-size-xx-large),
 );
 
-// Radius
-//-----------------------------
 $app-colors: (
-  "primary": #9100b5,
-  "secondary": #52A943,
-  "primary-light": #898CAA,
-  "yellow": #FFB84F,
-  "danger": #EA593C,
-  "light": #F5F6FB,
-  "gradient": linear-gradient(180deg, #FFDD86 0%, #FFB84F 100%),
-  "white": #fff,
-  "link-water": #EFF2FA,
+  "primary": $primary,
+  "secondary": $secondary,
 );
 
 // Font Weight
@@ -42,7 +41,7 @@ $font-weight: (
   "normal": 400,
   "medium": 500,
   "bold": 700,
-  "light": 300
+  "light": 300,
 );
 
 // Height
@@ -69,25 +68,38 @@ $width: (
   "250px": 250px,
   "140px": 140px,
   "120px": 120px,
-  "16px": 16px
+  "16px": 16px,
 );
-
 
 // Min-Width
 //-----------------------------
 $minWidth: (
   "40px": 40px,
-  "300px": 300px
+  "300px": 300px,
 );
 
 // Padding and margin
 //-----------------------------
-$padding-margin: (auto, 0, 3px, 5px, 10px, 15px, 20px, 25px, 30px, 40px, 60px, 70px, 95px, 135px);
-
+$padding-margin: (
+  auto,
+  0,
+  3px,
+  5px,
+  10px,
+  15px,
+  20px,
+  25px,
+  30px,
+  40px,
+  60px,
+  70px,
+  95px,
+  135px
+);
 
 $grid-columns: (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
 $grid-gap: (10px, 15px, 20px, 25px, 30px, 40px, 45px, 50px);
-$col-span: (2,3,4,5,6);
+$col-span: (2, 3, 4, 5, 6);
 
 // Display
 //-----------------------------
@@ -105,7 +117,7 @@ $align-items: (
   "center": center,
   "baseline": baseline,
   "around": space-around,
-  "stretch": stretch
+  "stretch": stretch,
 );
 
 $justify-items: (
@@ -113,7 +125,7 @@ $justify-items: (
   "end": flex-end,
   "center": center,
   "between": space-between,
-  "around": space-around
+  "around": space-around,
 );
 
 $align-self: (
@@ -122,12 +134,12 @@ $align-self: (
   "end": flex-end,
   "center": center,
   "baseline": baseline,
-  "stretch": stretch
+  "stretch": stretch,
 );
 
 $bg-colors: (
   "white": "#fff",
-  "dark": "#1a162f"
+  "dark": "#1a162f",
 );
 
 // Text align
@@ -144,4 +156,4 @@ $flex-direction: (row, column, column-reverse, row-reverse);
 
 // Border Radius
 //-----------------------------
-$border-radius: ( 4px, 5px, 10px, 15px, 20px, 25px, 30px);
+$border-radius: (4px, 5px, 10px, 15px, 20px, 25px, 30px);

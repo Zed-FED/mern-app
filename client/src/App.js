@@ -23,7 +23,7 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <div className={userInfo ? "App" : "test"}>
+      <div className={userInfo ? "App" : "Auth"}>
         <BrowserRouter>
           {userInfo && <SideBar />}
           {userInfo && <MDToolbar className="app-toolbar" />}

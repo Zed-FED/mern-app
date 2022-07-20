@@ -7,25 +7,25 @@
 // @import '~material-icons/iconfont/material-icons.scss';
 
 .App {
-	height: 100vh;
-	display: grid;
-	grid-template-columns: 240px 1fr;
-	grid-template-rows: 70px 1fr;
-	grid-template-areas: 
-			"sidebar toolbar"
-			"sidebar content"
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  grid-template-rows: 70px 1fr;
+  grid-template-areas:
+    "sidebar toolbar"
+    "sidebar content";
 }
 
 .sidebar-container {
-	grid-area: sidebar
+  grid-area: sidebar;
 }
 
 .app-toolbar {
-	grid-area: toolbar
+  grid-area: toolbar;
 }
 
-.content {
-	grid-area: content;
-	min-height: calc(100vh - 70px);
-	overflow-y: auto;
+.App .content {
+  grid-area: content;
+  min-height: calc(100vh - 70px);
+  overflow-y: auto;
 }
