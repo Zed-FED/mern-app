@@ -9,6 +9,7 @@ import { connect } from "react-redux";
 import { getCategories } from "../../redux/actions/categoryActions";
 import Card from "../../components/common/Card/Card";
 import {
+  Alert,
   Button,
   Checkbox,
   FormControl,
@@ -34,13 +35,15 @@ const Register = ({ departments }) => {
     showPassword: false,
   });
 
+  // const [isError, setIsError] = useState("");
+
   const [checkIsAdmin, setCheckIsAdmin] = useState(false);
   // console.log(checkIsAdmin);
   const dispatch = useDispatch();
 
   const userRegister = useSelector((state) => state.userRegister);
 
-  const { loading, userInfo } = userRegister;
+  let { loading, error, userInfo } = userRegister;
 
   let navigate = useNavigate();
 
@@ -52,6 +55,7 @@ const Register = ({ departments }) => {
 
   const onSubmitFormHandler = async (e) => {
     e.preventDefault();
+
     dispatch(
       userRegistration(
         user.name,
@@ -76,10 +80,17 @@ const Register = ({ departments }) => {
         <Typography variant="h4" component="h4" color="primary">
           Register
         </Typography>
+        {error && (
+          <Alert severity="error" className="d-flex align-items-center my-10px">
+            {error}
+          </Alert>
+        )}
         <form onSubmit={onSubmitFormHandler}>
           <div>
             <FormControl sx={{ m: 1 }} variant="standard">
-              <InputLabel htmlFor="name">Enter name</InputLabel>
+              <InputLabel htmlFor="name">
+                Enter name<sup>*</sup>
+              </InputLabel>
               <Input
                 id="name"
                 name="name"
@@ -98,7 +109,9 @@ const Register = ({ departments }) => {
           </div>
           <div>
             <FormControl sx={{ m: 1 }} variant="standard">
-              <InputLabel htmlFor="email">Enter Email</InputLabel>
+              <InputLabel htmlFor="email">
+                Enter Email<sup>*</sup>
+              </InputLabel>
               <Input
                 id="email"
                 name="email"
@@ -146,7 +159,9 @@ const Register = ({ departments }) => {
           </div>
           <div>
             <FormControl sx={{ m: 1 }} variant="standard">
-              <InputLabel htmlFor="password">Password</InputLabel>
+              <InputLabel htmlFor="password">
+                Password<sup>*</sup>
+              </InputLabel>
               <Input
                 id="password"
                 name="password"

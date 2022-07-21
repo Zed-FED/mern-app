@@ -28,8 +28,8 @@ export const getCategories = () => async (dispatch) => {
         const { status, message } = result;
 
         if (status !== "SUCCESS") {
-          console.log(status, message);
-          console.log("Not Success");
+          // console.log(status, message);
+          // console.log("Not Success");
         } else {
           dispatch({ type: GET_CATEGORIES_SUCCESS, payload: result.data });
         }

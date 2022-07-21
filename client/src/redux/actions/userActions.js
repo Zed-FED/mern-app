@@ -36,13 +36,15 @@ export const login = (email, password) => async (dispatch) => {
       .then((response) => {
         const result = response.data;
         const { status, message } = result;
-        if (status !== "LOGIN SUCCESS") {
-          // alert(message, status);
+        if (status === 400) {
+          dispatch({ type: USER_LOGIN_FAIL, payload: message });
+        } else if (status === "LOGIN FAIL") {
+          dispatch({ type: USER_LOGIN_FAIL, payload: message });
         } else {
           // console.log(result.data);
           dispatch({ type: USER_LOGIN_SUCCESS, payload: result.data });
           localStorage.setItem("User Info", JSON.stringify(result.data));
-          console.log("message", message);
+          // console.log("message", message);
         }
       })
       .catch((error) => {
@@ -85,13 +87,15 @@ export const userRegistration =
         .then((response) => {
           const result = response.data;
           const { status, message } = result;
-          if (status !== "SUCCESS") {
-            alert(message, status);
+          if (status === 400) {
+            dispatch({ type: USER_REGISTRATION_FAIL, payload: message });
+          } else if (status === 401) {
+            dispatch({ type: USER_REGISTRATION_FAIL, payload: message });
+          } else if (status !== "SUCCESS") {
+            dispatch({ type: USER_REGISTRATION_FAIL, payload: message });
           } else {
             dispatch({ type: USER_REGISTRATION_SUCCESS, payload: result.data });
-
             dispatch({ type: USER_LOGIN_SUCCESS, payload: result.data });
-
             localStorage.setItem("User Info", JSON.stringify(result.data));
           }
         })
@@ -240,10 +244,16 @@ export const addUser =
         .then((response) => {
           const result = response.data;
           const { status, message } = result;
-          if (status !== "SUCCESS") {
+          if (status === 400) {
+            dispatch({ type: ADD_USER_FAIL, payload: message });
+            // console.log(message);
+          } else if (status === 401) {
+            dispatch({ type: ADD_USER_FAIL, payload: message });
+            // console.log(message);
+          } else if (status !== "SUCCESS") {
             alert(message, status);
           } else {
-            console.log("Success");
+            // console.log("Success");
             dispatch({ type: ADD_USER_SUCCESS, payload: result.data });
           }
         })

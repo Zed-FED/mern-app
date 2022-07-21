@@ -7,6 +7,7 @@ import Loader from "../components/loader/loader";
 import axios from "axios";
 import { getCategories } from "../redux/actions/categoryActions";
 import {
+  Alert,
   Button,
   FormControl,
   IconButton,
@@ -25,7 +26,7 @@ const UpdateUser = ({ departments }) => {
     email: "",
     department: "",
   });
-  // const [edit, setEdit] = useState(false)
+  const [isError, setIsError] = useState();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -60,7 +61,10 @@ const UpdateUser = ({ departments }) => {
 
   const onSubmitFormHandler = (e) => {
     e.preventDefault();
-    if (user.name && user.email) {
+    if (!userData.name || !userData.email) {
+      setIsError("Please fill require fields");
+    }
+    if (userData.name && userData.email) {
       dispatch(editUser(location.pathname, userData));
       navigate("/home");
     }
@@ -72,12 +76,19 @@ const UpdateUser = ({ departments }) => {
     <>
       <h1>Update User</h1>
       {loading && <Loader />}
+      {isError && (
+        <Alert severity="error" className="d-flex align-items-center my-10px">
+          {isError}
+        </Alert>
+      )}
       {user && (
         <>
           <form onSubmit={onSubmitFormHandler}>
             <div style={{ padding: "0 0 10px" }}>
               <FormControl sx={{ m: 1 }} variant="standard">
-                <InputLabel htmlFor="name">Name</InputLabel>
+                <InputLabel htmlFor="name">
+                  Name<sup>*</sup>
+                </InputLabel>
                 <Input
                   id="name"
                   name="name"
@@ -96,7 +107,9 @@ const UpdateUser = ({ departments }) => {
             </div>
             <div style={{ padding: "0 0 10px" }}>
               <FormControl sx={{ m: 1 }} variant="standard">
-                <InputLabel htmlFor="email">Email</InputLabel>
+                <InputLabel htmlFor="email">
+                  Email<sup>*</sup>
+                </InputLabel>
                 <Input
                   id="email"
                   name="email"

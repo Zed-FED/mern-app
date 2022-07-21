@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useDispatch, connect } from "react-redux";
+import { useDispatch, connect, useSelector } from "react-redux";
 import { addUser } from "../redux/actions/userActions";
 import { getCategories } from "../redux/actions/categoryActions";
 import {
+  Alert,
   Button,
   FormControl,
   IconButton,
@@ -17,6 +18,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import EmailIcon from "@mui/icons-material/Email";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import Loader from "../components/loader/loader";
 
 const AddUser = ({ departments }) => {
   const [user, setUser] = useState({
@@ -35,14 +37,27 @@ const AddUser = ({ departments }) => {
 
   const dispatch = useDispatch();
   // const navigate = useNavigate();
+  const userAdd = useSelector((state) => state.addUser);
+
+  let { loading, error, users } = userAdd;
 
   const onSubmitFormHandler = async (e) => {
     e.preventDefault();
     // console.log(user);
     dispatch(addUser(user.name, user.email, user.password, user.department));
-    alert("User successfully added");
-    window.location.reload();
-    // navigate("/home");
+    // alert("User successfully added");
+    setUser({
+      ...user,
+      name: "",
+      email: "",
+      password: "",
+      department: "",
+    });
+    // if (users) {
+    //   window.location.reload();
+    //   // navigate("/home");
+    //   console.log("User added");
+    // }
   };
 
   useEffect(() => {
@@ -52,10 +67,19 @@ const AddUser = ({ departments }) => {
   return (
     <>
       <h1>Add User</h1>
+      {loading && <Loader />}
+      {error && (
+        <Alert severity="error" className="d-flex align-items-center my-10px">
+          {error}
+        </Alert>
+      )}
+      {users && <Alert severity="success">User Added</Alert>}
       <form onSubmit={onSubmitFormHandler}>
         <div>
           <FormControl sx={{ m: 1 }} variant="standard">
-            <InputLabel htmlFor="name">Enter name</InputLabel>
+            <InputLabel htmlFor="name">
+              Enter name<sup>*</sup>
+            </InputLabel>
             <Input
               id="name"
               name="name"
@@ -82,7 +106,9 @@ const AddUser = ({ departments }) => {
         </div>
         <div>
           <FormControl sx={{ m: 1 }} variant="standard">
-            <InputLabel htmlFor="email">Enter Email</InputLabel>
+            <InputLabel htmlFor="email">
+              Enter Email<sup>*</sup>
+            </InputLabel>
             <Input
               id="email"
               name="email"
@@ -109,7 +135,9 @@ const AddUser = ({ departments }) => {
         </div>
         <div>
           <FormControl sx={{ m: 1 }} variant="standard">
-            <InputLabel htmlFor="password">Password</InputLabel>
+            <InputLabel htmlFor="password">
+              Password<sup>*</sup>
+            </InputLabel>
             <Input
               id="password"
               name="password"

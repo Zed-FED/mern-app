@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../redux/actions/userActions";
 import Card from "../../components/common/Card/Card";
 import {
+  Alert,
   Button,
   FormControl,
   IconButton,
@@ -29,7 +30,7 @@ const Login = () => {
   const dispatch = useDispatch();
 
   const userLogin = useSelector((state) => state.userLogin);
-  const { loading, userInfo } = userLogin;
+  const { loading, userInfo, error } = userLogin;
 
   let navigate = useNavigate();
 
@@ -41,7 +42,13 @@ const Login = () => {
 
   const onSubmitFormHandler = async (e) => {
     e.preventDefault();
-
+    if (error) {
+      setUser({
+        ...user,
+        email: "",
+        password: "",
+      });
+    }
     dispatch(login(user.email, user.password));
   };
 
@@ -58,6 +65,11 @@ const Login = () => {
         <Typography variant="h4" component="h4" color="primary">
           Login
         </Typography>
+        {error && (
+          <Alert severity="error" className="d-flex align-items-center my-10px">
+            {error}
+          </Alert>
+        )}
         <form onSubmit={onSubmitFormHandler}>
           <div>
             <FormControl sx={{ m: 1 }} variant="standard">
