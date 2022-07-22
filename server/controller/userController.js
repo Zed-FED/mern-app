@@ -1,5 +1,6 @@
 const User = require("../model/userModal");
 const generateToken = require("../utils/generateToken");
+var ObjectId = require("mongodb").ObjectId;
 
 exports.addUser = async function (req, res) {
   let user = new User(req.body);
@@ -84,9 +85,26 @@ exports.getAllUsers = async function (req, res) {
 exports.editUser = async function (req, res) {
   try {
     const _id = req.params.id;
+    const email = req.body.email;
+    const documentToUpdateId = new ObjectId(req.params.id);
+    const userExists = await User.findOne({
+      email,
+      _id: { $ne: documentToUpdateId },
+    });
+    // console.log(userExists);
+    if (userExists) {
+      res.json({
+        status: 401,
+        message: "Email already exist",
+      });
+      return;
+    }
     const result = await User.findByIdAndUpdate(_id, req.body, {
       new: true,
     });
+
+    // console.log(result);
+
     if (!result) {
       res.json({
         status: "FAIL",

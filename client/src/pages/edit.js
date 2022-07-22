@@ -38,6 +38,10 @@ const UpdateUser = ({ departments }) => {
     return state.getSingleUser;
   });
 
+  const { error } = useSelector((state) => {
+    return state.editUser;
+  });
+
   const inputChangeHandler = (e) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -66,7 +70,7 @@ const UpdateUser = ({ departments }) => {
     }
     if (userData.name && userData.email) {
       dispatch(editUser(location.pathname, userData));
-      navigate("/home");
+      // navigate("/home");
     }
   };
 
@@ -81,6 +85,15 @@ const UpdateUser = ({ departments }) => {
           {isError}
         </Alert>
       )}
+
+      {error && (
+        <Alert severity="error" className="d-flex align-items-center my-10px">
+          {error}
+        </Alert>
+      )}
+
+      {/* !isError && !error && <Alert severity="success">User Updated</Alert> */}
+
       {user && (
         <>
           <form onSubmit={onSubmitFormHandler}>

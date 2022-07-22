@@ -174,12 +174,13 @@ export const editUser = (id, name, email, department) => async (dispatch) => {
       .put(`/users/${id}`, name, email, department)
       .then((response) => {
         const result = response.data;
-        // console.log(result);
+        console.log(result);
         // console.log(response);
-        const { status } = result;
-        if (status !== "SUCCESS") {
-          // console.log(status, message);
-          // console.log("Not Success")
+        const { status, message } = result;
+        if (status === 401) {
+          dispatch({ type: EDIT_USER_FAIL, payload: message });
+        } else if (status === "FAIL") {
+          dispatch({ type: EDIT_USER_FAIL, payload: message });
         } else {
           dispatch({ type: EDIT_USER_SUCCESS, payload: result.data });
           // console.log("Success")
