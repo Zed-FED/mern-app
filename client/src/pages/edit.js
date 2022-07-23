@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useParams, useLocation } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { getSingleUser, editUser } from "../redux/actions/userActions";
 import Loader from "../components/loader/loader";
@@ -29,7 +29,7 @@ const UpdateUser = ({ departments }) => {
   const [isError, setIsError] = useState();
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const params = useParams();
   const location = useLocation();
 
@@ -38,7 +38,7 @@ const UpdateUser = ({ departments }) => {
     return state.getSingleUser;
   });
 
-  const { error } = useSelector((state) => {
+  const { error, updatedUser } = useSelector((state) => {
     return state.editUser;
   });
 
@@ -80,15 +80,15 @@ const UpdateUser = ({ departments }) => {
     <>
       <h1>Update User</h1>
       {loading && <Loader />}
-      {isError && (
+      {(isError || error) && (
         <Alert severity="error" className="d-flex align-items-center my-10px">
-          {isError}
+          {error ? error : isError}
         </Alert>
       )}
 
-      {error && (
-        <Alert severity="error" className="d-flex align-items-center my-10px">
-          {error}
+      {updatedUser && (
+        <Alert severity="success" className="d-flex align-items-center my-10px">
+          User updated successfully
         </Alert>
       )}
 

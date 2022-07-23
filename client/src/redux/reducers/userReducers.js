@@ -80,11 +80,11 @@ export const getSingleUserReducer = (state = {}, action) => {
 export const editUserReducer = (state = {}, action) => {
   switch (action.type) {
     case EDIT_USER:
-      return { ...state, loading: true };
+      return { loading: true };
     case EDIT_USER_SUCCESS:
-      return { ...state, loading: false, user: action.payload };
+      return { loading: false, updatedUser: action.payload };
     case EDIT_USER_FAIL:
-      return { ...state, loading: false, error: action.payload };
+      return { loading: false, error: action.payload };
     default:
       return state;
   }
