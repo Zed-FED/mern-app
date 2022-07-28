@@ -1,4 +1,5 @@
 import {
+  Alert,
   Button,
   Dialog,
   DialogContent,
@@ -7,7 +8,7 @@ import {
   TextField,
 } from "@mui/material";
 import { useEffect, useState } from "react";
-import { connect, useDispatch } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import Loader from "../../components/loader/loader";
 import {
   getCategories,
@@ -34,11 +35,19 @@ const Category = ({ categoryList }) => {
   const [department, setDepartment] = useState({
     name: "",
   });
+  const [isError, setIsError] = useState(false);
   const dispatch = useDispatch();
   const { loading, categories } = categoryList;
 
+  const { category, error } = useSelector((state) => state.addCategory);
+  const { message } = useSelector((state) => state.deleteCategory);
+
   const addCategoryModal = () => {
     setIsModal(true);
+    setEditToggle(false);
+    setDepartment({
+      name: "",
+    });
   };
 
   const inputChangeHandler = (e) => {
@@ -49,16 +58,25 @@ const Category = ({ categoryList }) => {
 
   const onSubmitFormHandler = async (e) => {
     e.preventDefault();
-    dispatch(addCategory(department.name));
-    alert("Department successfully added");
-    window.location.reload();
+    if (department.name.length === 0) {
+      setIsError(true);
+      dispatch(addCategory());
+    } else {
+      dispatch(addCategory(department.name));
+
+      setIsModal(false);
+      dispatch(getCategories());
+    }
+
+    // alert("Department successfully added");
+    // window.location.reload();
     // navigate("/home");
-    setIsModal(false);
   };
 
   const editCategoryItem = async (id) => {
     setIsModal(true);
     setEditToggle(true);
+    setIsError(false);
     const { data } = await axios.get(`/categories/${id}`);
     setDepartment({
       name: data.data.name,
@@ -67,20 +85,27 @@ const Category = ({ categoryList }) => {
       name: data.data.name,
       id: data.data._id,
     });
+    // dispatch(getCategories());
   };
 
   const updateCategory = (e) => {
     e.preventDefault();
-    setIsModal(false);
-    setEditToggle(false);
-    dispatch(editCategory(depInfo.id, department));
-    window.location.reload();
+    if (department.name.length === 0) {
+      setIsError(true);
+      dispatch(editCategory());
+    } else {
+      setIsModal(false);
+      setEditToggle(false);
+      dispatch(editCategory(depInfo.id, department));
+      dispatch(getCategories());
+    }
   };
 
   const deleteSingleCategory = (id) => {
     setDeleteModal(true);
     dispatch(deleteCategory(id));
-    window.location.reload();
+    dispatch(getCategories());
+    // window.location.reload();
   };
 
   const columns = [
@@ -135,15 +160,34 @@ const Category = ({ categoryList }) => {
           Add Department
         </Button>
       </div>
+
+      {(category || message) && (
+        <Alert severity="success" className="d-flex align-items-center my-10px">
+          {category ? "Category added" : message}
+        </Alert>
+      )}
+
+      {/* category && (
+          <Alert severity="success" className="d-flex align-items-center my-10px">
+            Category added
+          </Alert>
+        )}
+  
+        {message && (
+          <Alert severity="success" className="d-flex align-items-center my-10px">
+            {message}
+          </Alert>
+        ) */}
+
       {loading && <Loader />}
 
-      <div style={{ height: 450, width: "100%" }}>
+      <div style={{ height: 550, width: "100%" }}>
         {categories && (
           <DataGrid
             rows={categories}
             columns={columns}
-            pageSize={6}
-            rowsPerPageOptions={[6]}
+            pageSize={8}
+            rowsPerPageOptions={[8]}
             getRowId={(row) => row._id}
           />
         )}
@@ -161,6 +205,15 @@ const Category = ({ categoryList }) => {
                   ? "Edit the name of the department"
                   : "Type the name of the department you want to add."}
               </DialogContentText>
+
+              {isError && (
+                <Alert
+                  severity="error"
+                  className="d-flex align-items-center my-10px"
+                >
+                  {error}
+                </Alert>
+              )}
 
               <TextField
                 autoFocus
@@ -211,7 +264,12 @@ const Category = ({ categoryList }) => {
 
           <DialogActions>
             <Button onClick={() => setDeleteModal(false)}>Cancel</Button>
-            <Button onClick={() => deleteSingleCategory(depInfo.id)}>
+            <Button
+              onClick={() => {
+                deleteSingleCategory(depInfo.id);
+                setDeleteModal(false);
+              }}
+            >
               Confirm
             </Button>
           </DialogActions>

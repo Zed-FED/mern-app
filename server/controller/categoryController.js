@@ -3,6 +3,16 @@ const Category = require("../model/categoryModal");
 exports.addCategory = async function (req, res) {
   let category = new Category(req.body);
 
+  let { name } = category;
+
+  if (!name) {
+    res.json({
+      status: 400,
+      message: "Please enter department name",
+    });
+    return;
+  }
+
   const result = await category.save();
 
   if (!result) {
@@ -66,6 +76,14 @@ exports.editCategory = async function (req, res) {
     const result = await Category.findByIdAndUpdate(_id, req.body, {
       new: true,
     });
+    let { name } = result;
+    if (!name) {
+      res.json({
+        status: 400,
+        message: "Please enter department name",
+      });
+      return;
+    }
     if (!result) {
       res.json({
         status: "FAIL",

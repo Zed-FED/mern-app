@@ -83,10 +83,9 @@ export const editCategory = (id, name) => async (dispatch) => {
         const result = response.data;
         console.log(result);
         // console.log(response);
-        const { status } = result;
-        if (status !== "SUCCESS") {
-          // console.log(status, message);
-          // console.log("Not Success")
+        const { status, message } = result;
+        if (status === 400) {
+          dispatch({ type: EDIT_CATEGORY_FAIL, payload: message });
         } else {
           dispatch({ type: EDIT_CATEGORY_SUCCESS, payload: result.data });
           // console.log("Success")
@@ -112,11 +111,11 @@ export const deleteCategory = (id) => async (dispatch) => {
       .then((response) => {
         const result = response.data;
         console.log(result);
-        const { status } = result;
+        const { status, message } = result;
         if (status !== "SUCCESS") {
           // console.log("Not Success")
         } else {
-          dispatch({ type: DELETE_CATEGORY_SUCCESS, payload: result.data });
+          dispatch({ type: DELETE_CATEGORY_SUCCESS, payload: message });
           console.log("Success");
         }
       })
@@ -145,8 +144,8 @@ export const addCategory = (name) => async (dispatch) => {
       .then((response) => {
         const result = response.data;
         const { status, message } = result;
-        if (status !== "SUCCESS") {
-          alert(message, status);
+        if (status === 400) {
+          dispatch({ type: ADD_CATEGORY_FAIL, payload: message });
         } else {
           console.log("Success");
           dispatch({ type: ADD_CATEGORY_SUCCESS, payload: result.data });

@@ -58,11 +58,11 @@ export const editCategoryReducer = (state = {}, action) => {
 export const deleteCategoryReducer = (state = {}, action) => {
   switch (action.type) {
     case DELETE_CATEGORY:
-      return { loading: true };
+      return { ...state, loading: true };
     case DELETE_CATEGORY_SUCCESS:
-      return { loading: false };
+      return { ...state, loading: false, message: action.payload };
     case DELETE_CATEGORY_FAIL:
-      return { loading: false, error: action.payload };
+      return { ...state, loading: false, error: action.payload };
     default:
       return state;
   }
@@ -71,11 +71,11 @@ export const deleteCategoryReducer = (state = {}, action) => {
 export const addCategoryReducer = (state = {}, action) => {
   switch (action.type) {
     case ADD_CATEGORY:
-      return { loading: true };
+      return { ...state, loading: true };
     case ADD_CATEGORY_SUCCESS:
-      return { loading: false, categories: action.payload };
+      return { ...state, loading: false, category: action.payload };
     case ADD_CATEGORY_FAIL:
-      return { loading: false, error: action.payload };
+      return { ...state, loading: false, error: action.payload };
     default:
       return state;
   }
