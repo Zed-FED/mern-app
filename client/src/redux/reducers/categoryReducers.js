@@ -19,11 +19,11 @@ import {
 export const getCategoriesReducer = (state = {}, action) => {
   switch (action.type) {
     case GET_CATEGORIES:
-      return { loading: true };
+      return { ...state, loading: true };
     case GET_CATEGORIES_SUCCESS:
-      return { loading: false, categories: action.payload };
+      return { ...state, loading: false, categories: action.payload };
     case GET_CATEGORIES_FAIL:
-      return { loading: false, error: action.payload };
+      return { ...state, loading: false, error: action.payload };
     default:
       return state;
   }
