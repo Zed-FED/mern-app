@@ -89,7 +89,7 @@ const Dashboard = ({ userList }) => {
         </Card>
 
         <Card>
-          <h2 className="m-0 p-15px seperator">Some Heading</h2>
+          <h2 className="m-0 p-15px seperator">Users by Department</h2>
           <DonutChart />
         </Card>
 
