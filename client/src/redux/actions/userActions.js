@@ -228,7 +228,7 @@ export const deleteUser = (id) => async (dispatch) => {
 };
 
 export const addUser =
-  (name, email, password, department) => async (dispatch) => {
+  (name, email, password, department, joiningDate) => async (dispatch) => {
     try {
       dispatch({ type: ADD_USER });
 
@@ -238,6 +238,7 @@ export const addUser =
         email: email,
         password: password,
         department: department,
+        joiningDate: joiningDate,
       };
 
       axios

@@ -19,14 +19,25 @@ import {
 } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
 import EmailIcon from "@mui/icons-material/Email";
+import AppDatePicker from "../components/common/DatePicker/DatePicker";
 
 const UpdateUser = ({ departments }) => {
   const [userData, setUserData] = useState({
     name: "",
     email: "",
     department: "",
+    joiningDate: "",
   });
   const [isError, setIsError] = useState();
+
+  console.log(userData.joiningDate);
+
+  const handleChange = (newValue) => {
+    setUserData({
+      ...userData,
+      joiningDate: newValue,
+    });
+  };
 
   const dispatch = useDispatch();
   // const navigate = useNavigate();
@@ -58,6 +69,7 @@ const UpdateUser = ({ departments }) => {
         name: data.data.name,
         email: data.data.email,
         department: data.data.department,
+        joiningDate: data.data.joiningDate,
       });
     };
     fetching();
@@ -168,6 +180,11 @@ const UpdateUser = ({ departments }) => {
                 </Select>
               </FormControl>
             </div>
+            <AppDatePicker
+              name="joiningDate"
+              value={userData.joiningDate}
+              handleChange={handleChange}
+            />
             <Button variant="contained" type="submit" sx={{ m: 1 }}>
               Update
             </Button>

@@ -19,6 +19,7 @@ import EmailIcon from "@mui/icons-material/Email";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Loader from "../components/loader/loader";
+import AppDatePicker from "../components/common/DatePicker/DatePicker";
 
 const AddUser = ({ departments }) => {
   const [user, setUser] = useState({
@@ -26,8 +27,18 @@ const AddUser = ({ departments }) => {
     email: "",
     password: "",
     department: "",
+    joiningDate: new Date(),
     showPassword: false,
   });
+  // const [value, setValue] = useState(new Date());
+
+  // console.log(user.joiningDate);
+  const handleChange = (newValue) => {
+    setUser({
+      ...user,
+      joiningDate: newValue,
+    });
+  };
 
   const inputChangeHandler = (e) => {
     const name = e.target.name;
@@ -44,7 +55,15 @@ const AddUser = ({ departments }) => {
   const onSubmitFormHandler = async (e) => {
     e.preventDefault();
     // console.log(user);
-    dispatch(addUser(user.name, user.email, user.password, user.department));
+    dispatch(
+      addUser(
+        user.name,
+        user.email,
+        user.password,
+        user.department,
+        user.joiningDate
+      )
+    );
     // alert("User successfully added");
     setUser({
       ...user,
@@ -95,14 +114,6 @@ const AddUser = ({ departments }) => {
               }
             />
           </FormControl>
-          {/* <input
-            type="text"
-            placeholder="Enter name"
-            value={user.name}
-            name="name"
-            onChange={inputChangeHandler}
-            required
-              /> */}
         </div>
         <div>
           <FormControl sx={{ m: 1 }} variant="standard">
@@ -124,14 +135,6 @@ const AddUser = ({ departments }) => {
               }
             />
           </FormControl>
-          {/* <input
-            type="text"
-            placeholder="Enter email"
-            value={user.email}
-            name="email"
-            onChange={inputChangeHandler}
-            required
-            /> */}
         </div>
         <div>
           <FormControl sx={{ m: 1 }} variant="standard">
@@ -158,14 +161,6 @@ const AddUser = ({ departments }) => {
               }
             />
           </FormControl>
-          {/* <input
-            type="password"
-            placeholder="Enter password"
-            value={user.password}
-            name="password"
-            onChange={inputChangeHandler}
-            required
-          /> */}
         </div>
         <div>
           <FormControl
@@ -195,18 +190,13 @@ const AddUser = ({ departments }) => {
                 })}
             </Select>
           </FormControl>
-          {/* <select
-            onChange={inputChangeHandler}
-            value={user.department}
-            name="department"
-          >
-            <option value="">Please Select Department</option>
-            <option value="Frontend">FrontEnd</option>
-            <option value="Backend">BackEnd</option>
-            <option value="QA">QA</option>
-            <option value="HR">HR</option>
-            <option value="Management">Management</option>
-        </select> */}
+        </div>
+        <div className="mt-15px">
+          <AppDatePicker
+            name="joiningDate"
+            value={user.joiningDate}
+            handleChange={handleChange}
+          />
         </div>
         <Button variant="contained" type="submit" sx={{ m: 1 }}>
           Add User

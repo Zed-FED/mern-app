@@ -26,6 +26,7 @@ exports.addUser = async function (req, res) {
     return;
   }
   const result = await user.save();
+  // console.log(result);
 
   if (!result) {
     res.json({

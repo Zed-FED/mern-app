@@ -1,25 +1,20 @@
-import {useState} from 'react'
-import TextField from '@mui/material/TextField';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-
-
-const AppDatePicker = () => {
-  const [value, setValue] = useState<Date | null>(null);
-
+import TextField from "@mui/material/TextField";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
+const AppDatePicker = ({ value, handleChange, ...props }) => {
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
-      <DatePicker
-        label="Basic example"
+      <DesktopDatePicker
+        label="Date of Joining"
+        inputFormat="dd/MM/yyyy"
         value={value}
-        onChange={(newValue) => {
-          setValue(newValue);
-        }}
+        onChange={handleChange}
         renderInput={(params) => <TextField {...params} />}
+        {...props}
       />
     </LocalizationProvider>
   );
-}
+};
 
 export default AppDatePicker;
