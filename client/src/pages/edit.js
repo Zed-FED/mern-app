@@ -20,17 +20,18 @@ import {
 import PersonIcon from "@mui/icons-material/Person";
 import EmailIcon from "@mui/icons-material/Email";
 import AppDatePicker from "../components/common/DatePicker/DatePicker";
-
+import AppFileUpload from "../components/common/FileUpload";
 const UpdateUser = ({ departments }) => {
   const [userData, setUserData] = useState({
     name: "",
     email: "",
     department: "",
     joiningDate: "",
+    pic: "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
   });
   const [isError, setIsError] = useState();
 
-  console.log(userData.joiningDate);
+  // console.log(userData.joiningDate);
 
   const handleChange = (newValue) => {
     setUserData({
@@ -70,6 +71,7 @@ const UpdateUser = ({ departments }) => {
         email: data.data.email,
         department: data.data.department,
         joiningDate: data.data.joiningDate,
+        pic: data.data.pic,
       });
     };
     fetching();
@@ -82,12 +84,28 @@ const UpdateUser = ({ departments }) => {
     }
     if (userData.name && userData.email) {
       dispatch(editUser(location.pathname, userData));
+      // console.log(userData);
       // navigate("/home");
     }
   };
 
   // const newObj = Object.assign(userData, { name: user ? user.name : 'Some name', email: user ? user.email : 'Some email' })
 
+  // Handle and convert image to base 64
+  const handleImage = (e) => {
+    const file = e.target.files[0];
+    setFileToBase(file);
+  };
+  const setFileToBase = (file) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      setUserData({
+        ...userData,
+        pic: reader.result,
+      });
+    };
+  };
   return (
     <>
       <h1>Update User</h1>
@@ -185,6 +203,15 @@ const UpdateUser = ({ departments }) => {
               value={userData.joiningDate}
               handleChange={handleChange}
             />
+            <div style={{ margin: "20px 0" }}>
+              <img src={userData.pic} alt={userData.name} />
+            </div>
+            <div style={{ padding: "10px 0" }}>
+              <AppFileUpload
+                fileUploadName="pic"
+                fileUploadChange={handleImage}
+              />
+            </div>
             <Button variant="contained" type="submit" sx={{ m: 1 }}>
               Update
             </Button>

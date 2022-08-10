@@ -69,7 +69,7 @@ export const logOut = () => async (dispatch) => {
 };
 
 export const userRegistration =
-  (name, email, department, password, isAdmin) => async (dispatch) => {
+  (name, email, department, password, pic, isAdmin) => async (dispatch) => {
     try {
       dispatch({ type: USER_REGISTRATION_REQUEST });
 
@@ -79,6 +79,7 @@ export const userRegistration =
         email: email,
         department: department,
         password: password,
+        pic: pic,
         isAdmin,
       };
 

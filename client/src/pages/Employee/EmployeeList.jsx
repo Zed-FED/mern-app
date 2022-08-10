@@ -14,6 +14,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import Stack from "@mui/material/Stack";
 import AddIcon from "@mui/icons-material/Add";
 import {
+  Avatar,
   Button,
   DialogActions,
   DialogContent,
@@ -46,6 +47,18 @@ const EmployeeList = ({ userList }) => {
   };
   const columns = [
     { field: "_id", headerName: "ID", hide: true },
+    {
+      field: "pic",
+      headerName: "Avatar",
+      width: 100,
+      renderCell: (params) => {
+        return (
+          <div>
+            <Avatar alt={params.row.name} src={params.row.pic} />
+          </div>
+        );
+      },
+    },
     { field: "name", headerName: "Username", flex: 1 },
     { field: "email", headerName: "Email", flex: 1 },
     { field: "department", headerName: "Department", flex: 1 },
