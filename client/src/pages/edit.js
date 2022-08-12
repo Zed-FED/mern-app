@@ -54,7 +54,7 @@ const UpdateUser = ({ departments }) => {
     return state.editUser;
   });
 
-  // console.log(updatedUser);
+  // updatedUser && console.log(updatedUser);
 
   const inputChangeHandler = (e) => {
     const name = e.target.name;
@@ -80,8 +80,10 @@ const UpdateUser = ({ departments }) => {
       });
     };
     fetching();
-    updatedStorage(updatedUser);
-  }, [dispatch, params.id, updatedUser]);
+    if (updatedUser && updatedUser._id === userInfo._id) {
+      updatedStorage(updatedUser);
+    }
+  }, [dispatch, params.id, updatedUser, userInfo._id]);
 
   const updatedStorage = (updatedData) => {
     const item = {
@@ -103,9 +105,6 @@ const UpdateUser = ({ departments }) => {
       }, 1500);
       // console.log(userData);
       // navigate("/home");
-    }
-    if (user._id === userInfo._id) {
-    } else {
     }
   };
 

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -22,8 +22,6 @@ import {
 
 export default function MDToolbar({ toggleMenu, toggle }) {
   const [anchorElUser, setAnchorElUser] = useState(null);
-  const [items, setItems] = useState([]);
-  console.log(items);
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -42,12 +40,6 @@ export default function MDToolbar({ toggleMenu, toggle }) {
     dispatch(logOut());
     navigate("/");
   };
-
-  useEffect(() => {
-    const storageData = JSON.parse(localStorage.getItem("User Info"));
-    setItems(storageData);
-    // console.log(storageData);
-  }, []);
 
   return (
     <Box sx={{ flexGrow: 1 }} className="app-toolbar">
