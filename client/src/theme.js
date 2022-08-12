@@ -57,6 +57,9 @@ const theme = createTheme({
       },
     },
   },
+  typography: {
+    fontFamily: ["Poppins", "sans-serif"].join(","),
+  },
   // shadows: shadows.map(() => 'none'),
 });
 

@@ -14,10 +14,26 @@
   grid-template-areas:
     "sidebar toolbar"
     "sidebar content";
+
+  &.menu-close {
+    grid-template-columns: 0px 1fr;
+    grid-template-areas:
+      "sidebar toolbar"
+      "sidebar content";
+  }
 }
 
 .sidebar-container {
   grid-area: sidebar;
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 240px;
+  transition: 0.2s ease-in;
+  &.sidebar-close {
+    transform: translateX(-240px);
+  }
 }
 
 .app-toolbar {

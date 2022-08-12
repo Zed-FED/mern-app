@@ -54,11 +54,16 @@ const UpdateUser = ({ departments }) => {
     return state.editUser;
   });
 
+  // console.log(updatedUser);
+
   const inputChangeHandler = (e) => {
     const name = e.target.name;
     const value = e.target.value;
     setUserData({ ...userData, [name]: value });
   };
+
+  const userDetails = useSelector((state) => state.userLogin);
+  let { userInfo } = userDetails;
 
   useEffect(() => {
     dispatch(getSingleUser(params.id));
@@ -75,7 +80,16 @@ const UpdateUser = ({ departments }) => {
       });
     };
     fetching();
-  }, [dispatch, params.id]);
+    updatedStorage(updatedUser);
+  }, [dispatch, params.id, updatedUser]);
+
+  const updatedStorage = (updatedData) => {
+    const item = {
+      ...JSON.parse(localStorage.getItem("User Info")),
+      ...updatedData,
+    };
+    localStorage.setItem("User Info", JSON.stringify(item));
+  };
 
   const onSubmitFormHandler = (e) => {
     e.preventDefault();
@@ -84,8 +98,14 @@ const UpdateUser = ({ departments }) => {
     }
     if (userData.name && userData.email) {
       dispatch(editUser(location.pathname, userData));
+      setTimeout(function () {
+        window.location.reload(1);
+      }, 1500);
       // console.log(userData);
       // navigate("/home");
+    }
+    if (user._id === userInfo._id) {
+    } else {
     }
   };
 

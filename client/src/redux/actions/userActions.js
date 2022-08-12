@@ -184,6 +184,7 @@ export const editUser = (id, name, email, department) => async (dispatch) => {
           dispatch({ type: EDIT_USER_FAIL, payload: message });
         } else {
           dispatch({ type: EDIT_USER_SUCCESS, payload: result.data });
+          // localStorage.setItem("User Info", JSON.stringify(result.data));
           // console.log("Success")
         }
       })
