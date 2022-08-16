@@ -21,7 +21,7 @@ const Single = () => {
 
   return (
     <>
-      <h1>Single</h1>
+      <h1>User Details</h1>
       {loading && <Loader />}
       {user && (
         <>

@@ -32,7 +32,7 @@ function App() {
     <ToggleMenu.Provider value={toggle}>
       <ThemeProvider theme={theme}>
         <div
-          className={userInfo ? (toggle ? "App menu-close" : "App") : "Auth"}
+          className={userInfo ? (toggle ? "App menu-toggle" : "App") : "Auth"}
         >
           <BrowserRouter>
             {userInfo && <SideBar />}

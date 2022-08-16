@@ -20,7 +20,8 @@ import {
   Paper,
 } from "@mui/material";
 
-export default function MDToolbar({ toggleMenu, toggle }) {
+export default function MDToolbar(props) {
+  console.log(props);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -50,11 +51,14 @@ export default function MDToolbar({ toggleMenu, toggle }) {
             edge="start"
             color="inherit"
             aria-label="menu"
-            sx={{ mr: 2 }}
-            onClick={toggleMenu}
-            className={toggle ? "close-menu" : null}
+            sx={{ mr: 2, position: "relative", zIndex: 2 }}
+            onClick={props.toggleMenu}
+            className={"nav-button " + (props.toggle ? "toggled" : null)}
           >
-            <MenuIcon />
+            <span class="bar bar1"></span>
+            <span class="bar bar2"></span>
+            <span class="bar bar3"></span>
+            <span class="bar bar4"></span>
           </IconButton>
           {/*<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Welcome{" "}

@@ -10,7 +10,7 @@ const SideBar = () => {
           <Box
             component="aside"
             className={
-              value ? `sidebar-close sidebar-container` : `sidebar-container`
+              value ? `sidebar-toggle sidebar-container` : `sidebar-container`
             }
             bgcolor="primary.main"
             color="white.main"

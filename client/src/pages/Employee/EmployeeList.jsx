@@ -62,7 +62,6 @@ const EmployeeList = ({ userList }) => {
     { field: "name", headerName: "Username", flex: 1 },
     { field: "email", headerName: "Email", flex: 1 },
     { field: "department", headerName: "Department", flex: 1 },
-    { field: "joiningDate", headerName: "Joining Date", width: 330 },
     {
       field: "actions",
       headerName: "Action",

@@ -15,11 +15,15 @@
     "sidebar toolbar"
     "sidebar content";
 
-  &.menu-close {
+  &.menu-toggle {
     grid-template-columns: 0px 1fr;
     grid-template-areas:
       "sidebar toolbar"
       "sidebar content";
+  }
+
+  @media screen and (max-width: 767px) {
+    grid-template-columns: 0px 1fr;
   }
 }
 
@@ -31,8 +35,16 @@
   bottom: 0;
   width: 240px;
   transition: 0.2s ease-in;
-  &.sidebar-close {
+  z-index: 1;
+  &.sidebar-toggle {
     transform: translateX(-240px);
+  }
+  @media screen and (max-width: 767px) {
+    transform: translateX(-240px);
+
+    &.sidebar-toggle {
+      transform: translateX(0);
+    }
   }
 }
 
@@ -44,4 +56,9 @@
   grid-area: content;
   min-height: calc(100vh - 70px);
   overflow-y: auto;
+}
+
+.chart-row {
+  display: flex;
+  flex-direction: column;
 }

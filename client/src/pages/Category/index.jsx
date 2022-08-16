@@ -140,7 +140,7 @@ const Category = ({ categoryList }) => {
           </div>
         );
       },
-      width: 330,
+      width: 130,
     },
   ];
 

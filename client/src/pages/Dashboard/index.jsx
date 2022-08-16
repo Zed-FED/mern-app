@@ -91,7 +91,7 @@ const Dashboard = ({ userList }) => {
       </div>
 
       {/* Charts */}
-      <div className="my-30px d-grid grid-4 gap-30px">
+      <div className="chart-row my-30px d-grid grid-4 gap-30px">
         <Card className="col-span-2">
           {/*<h2 className="m-0 p-15px seperator">Some Heading</h2> */}
           <Typography
