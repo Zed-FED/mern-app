@@ -82,11 +82,17 @@
     }
     .bar2 {
       transform: rotate(45deg);
-      background-color: white;
+      background-color: var(--primary-text);
+      @media screen and (max-width: 767px) {
+        background-color: white;
+      }
     }
     .bar3 {
       transform: rotate(-45deg);
-      background-color: white;
+      background-color: var(--primary-text);
+      @media screen and (max-width: 767px) {
+        background-color: white;
+      }
     }
     .bar4 {
       transform: translateX(-40px);

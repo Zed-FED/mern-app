@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import MDButton from "../Button/Button";
 import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
+// import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
@@ -55,10 +55,10 @@ export default function MDToolbar(props) {
             onClick={props.toggleMenu}
             className={"nav-button " + (props.toggle ? "toggled" : null)}
           >
-            <span class="bar bar1"></span>
-            <span class="bar bar2"></span>
-            <span class="bar bar3"></span>
-            <span class="bar bar4"></span>
+            <span className="bar bar1"></span>
+            <span className="bar bar2"></span>
+            <span className="bar bar3"></span>
+            <span className="bar bar4"></span>
           </IconButton>
           {/*<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Welcome{" "}
