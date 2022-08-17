@@ -28,7 +28,7 @@ export const login = (email, password) => async (dispatch) => {
   try {
     dispatch({ type: USER_LOGIN_REQUEST });
 
-    const url = "http://localhost:8000/login";
+    const url = "/login";
     const credentials = { email: email, password: password };
 
     axios
