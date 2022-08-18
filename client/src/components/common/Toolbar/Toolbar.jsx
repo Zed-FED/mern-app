@@ -21,7 +21,6 @@ import {
 } from "@mui/material";
 
 export default function MDToolbar(props) {
-  console.log(props);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);

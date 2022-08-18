@@ -139,9 +139,9 @@ export const getUsers = () => async (dispatch) => {
 export const getSingleUser = (id) => async (dispatch) => {
   try {
     dispatch({ type: GET_SINGLE_USER });
-
+    let url = `/users/${id}`.replace(/([^:]\/)\/+/g, "$1");
     axios
-      .get(`/users/${id}`)
+      .get(url)
       .then((response) => {
         const result = response.data;
         // console.log(response);
