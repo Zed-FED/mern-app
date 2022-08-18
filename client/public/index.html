@@ -29,10 +29,41 @@
     />
 
     <title>Sencillo</title>
+
+    <style>
+      .loader {
+        background-color: #19d29f;
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .loading-img {
+        animation: rotation 2s linear infinite;
+        max-width: 50px;
+        height: auto;
+      }
+      @keyframes rotation {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
+    <div id="root">
+      <div class="loader">
+        <img class="loading-img" src="/images/icon.svg" alt="logo" />
+      </div>
+    </div>
     <div id="modal"></div>
     <!--
       This HTML file is a template.
