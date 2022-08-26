@@ -52,7 +52,7 @@ export default function MDToolbar(props) {
             aria-label="menu"
             sx={{ mr: 2, position: "relative", zIndex: 2 }}
             onClick={props.toggleMenu}
-            className={"nav-button " + (props.toggle ? "toggled" : null)}
+            className={"nav-button " + (props.toggle ? "toggled" : "")}
           >
             <span className="bar bar1"></span>
             <span className="bar bar2"></span>

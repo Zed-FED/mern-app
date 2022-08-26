@@ -28,6 +28,10 @@ function App() {
     setToggle(!toggle);
   };
 
+  const resetToggle = () => {
+    setToggle(!toggle);
+  };
+
   return (
     <ToggleMenu.Provider value={toggle}>
       <ThemeProvider theme={theme}>
@@ -35,7 +39,7 @@ function App() {
           className={userInfo ? (toggle ? "App menu-toggle" : "App") : "Auth"}
         >
           <BrowserRouter>
-            {userInfo && <SideBar />}
+            {userInfo && <SideBar resetToggle={resetToggle} />}
             {userInfo && <MDToolbar toggleMenu={toggleMenu} toggle={toggle} />}
             <div className="content p-15px">
               <Routes>

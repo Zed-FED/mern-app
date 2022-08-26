@@ -2,14 +2,14 @@ import { useState } from "react";
 import menuItem from "./menuItems";
 import { Link } from "react-router-dom";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-const Navigation = () => {
+const Navigation = ({ resetToggle }) => {
   return (
     <div className="nav">
       <ul>
         {menuItem.map((menu, index) => {
           return (
             <li key={index}>
-              <MenuItem menu={menu} />
+              <MenuItem menu={menu} resetToggle={resetToggle} />
             </li>
           );
         })}
@@ -18,7 +18,7 @@ const Navigation = () => {
   );
 };
 
-const MenuItem = ({ menu }) => {
+const MenuItem = ({ menu, resetToggle }) => {
   const [dropDown, setDropDown] = useState(false);
   return (
     <>
@@ -32,26 +32,28 @@ const MenuItem = ({ menu }) => {
             {menu.menuName}
           </>
         ) : (
-          <Link to={menu.link}>
+          <Link to={menu.link} onClick={resetToggle}>
             <span className="icon">{menu.icon}</span>
             {menu.menuName}
           </Link>
         )}
         {menu.subMenu ? <KeyboardArrowDownIcon className="dd-icon" /> : null}
       </div>
-      {menu.subMenu && dropDown && <SubMenu dropdown={menu.subMenu} />}
+      {menu.subMenu && dropDown && (
+        <SubMenu dropdown={menu.subMenu} resetToggle={resetToggle} />
+      )}
     </>
   );
 };
 
-const SubMenu = ({ dropdown }) => {
+const SubMenu = ({ dropdown, resetToggle }) => {
   return (
     <div className="dropdown">
       <ul>
         {dropdown.map((item, index) => {
           return (
             <li key={index}>
-              <Link to={item.link}>
+              <Link to={item.link} onClick={resetToggle}>
                 <span className="icon">{item.icon}</span>
                 {item.menuName}
               </Link>

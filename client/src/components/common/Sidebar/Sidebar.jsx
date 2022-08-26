@@ -2,7 +2,7 @@ import Navigation from "./Navigation";
 import Box from "@mui/material/Box";
 import { ReactComponent as Logo } from "./assets/logo.svg";
 import { ToggleMenu } from "../../../App";
-const SideBar = () => {
+const SideBar = ({ resetToggle }) => {
   return (
     <ToggleMenu.Consumer>
       {(value) => {
@@ -18,7 +18,7 @@ const SideBar = () => {
             <div className="logo">
               <Logo />
             </div>
-            <Navigation />
+            <Navigation resetToggle={resetToggle} />
           </Box>
         );
       }}
